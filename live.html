@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Live Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+
+<h2>📊 Agent Performance Dashboard</h2>
+
+<div id="reportTime"></div>
+
+<input type="text" id="search" placeholder="🔍 Search..." onkeyup="searchTable()">
+
+<div id="cards"></div>
+
+<div class="table-container">
+<table id="table">
+<thead>
+<tr>
+<th>S.No</th>
+<th>Employee ID</th>
+<th>Agent Full Name</th>
+<th>Total Login</th>
+<th>Net Login</th>
+<th>Total Break</th>
+<th>Total Meeting</th>
+<th>Total ACW</th>
+<th>AHT</th>
+<th>Total Mature</th>
+<th>IB Mature</th>
+<th>OB Mature</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+
+<div id="brandingLive">Powered by Chandan Malakar</div>
+
+<audio id="notifySound"></audio>
+
+<div id="liveAlert">🚀 Agent Performance Report Updated</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script src="./script.js"></script>
+
+</body>
+</html>

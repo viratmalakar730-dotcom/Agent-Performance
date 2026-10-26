@@ -1,0 +1,1505 @@
+/* ================= BODY (LIVE ANIMATED BG) ================= */
+
+body{
+    font-family: Arial, sans-serif;
+    color:white;
+    margin:0;
+    text-align:center;
+    font-weight:bold;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    background: linear-gradient(-45deg, #020617, #0b1f3a, #1e3a8a, #020617);
+    background-size: 400% 400%;
+    animation: bgMove 12s ease infinite;
+
+    width:100%;
+    overflow-x:hidden;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* ================= TITLE ================= */
+
+h2{
+    color:white;
+    margin:15px auto;
+    text-align:center;
+
+    text-shadow:
+        0 0 12px rgba(255,255,255,0.6),
+        0 0 25px rgba(59,130,246,0.3);
+}
+
+/* ================= UPLOAD PAGE ================= */
+
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+
+    width:100%;
+    padding:20px;
+    box-sizing:border-box;
+}
+
+.box{
+    background: linear-gradient(145deg,#0b3d91,#072c6b);
+
+    padding:30px;
+    border-radius:22px;
+    width:350px;
+
+    text-align:center;
+
+    overflow:hidden;
+    isolation:isolate;
+
+    box-shadow:
+        0 14px 35px rgba(0,0,0,0.65),
+        inset 0 1px 1px rgba(255,255,255,0.08),
+        0 0 25px rgba(30,58,138,0.25);
+
+    backdrop-filter: blur(8px);
+}
+
+.box input{
+    margin:10px auto;
+    padding:10px;
+    width:90%;
+
+    display:block;
+
+    border-radius:8px;
+    border:none;
+    outline:none;
+
+    background:#f8fafc;
+
+    box-shadow:
+        inset 2px 2px 5px rgba(0,0,0,0.3),
+        0 2px 8px rgba(0,0,0,0.15);
+
+    transition:0.25s;
+}
+
+.box input:focus{
+    transform:scale(1.02);
+
+    box-shadow:
+        0 0 12px rgba(14,165,233,0.8),
+        inset 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+/* ================= BUTTON ================= */
+
+button{
+    padding:10px 18px;
+    border:none;
+    border-radius:10px;
+
+    background:#0ea5e9;
+    color:white;
+
+    font-weight:bold;
+    cursor:pointer;
+
+    margin:8px;
+
+    transition:all .25s ease;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.65),
+        inset 0 1px 1px rgba(255,255,255,0.2);
+}
+
+button:hover{
+    transform:translateY(-3px) scale(1.06);
+
+    box-shadow:
+        0 0 20px rgba(14,165,233,1),
+        0 0 40px rgba(14,165,233,0.6),
+        0 12px 28px rgba(0,0,0,0.7);
+}
+
+/* ================= CARDS ================= */
+
+#cards{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+
+    width:100%;
+    margin:20px auto;
+
+    background:transparent !important;
+    box-shadow:none !important;
+}
+
+.card{
+    background:linear-gradient(145deg,#0b3d91,#072c6b);
+
+    padding:15px;
+    border-radius:14px;
+    width:150px;
+
+    color:white;
+    text-align:center;
+
+    overflow:hidden;
+    isolation:isolate;
+
+    transition:all .25s ease;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.55),
+        inset 0 1px 1px rgba(255,255,255,0.08),
+        0 0 18px rgba(30,58,138,0.25);
+}
+
+.card:hover{
+    transform:translateY(-5px) scale(1.04);
+
+    box-shadow:
+        0 0 30px rgba(30,58,138,0.9),
+        0 0 55px rgba(30,58,138,0.5),
+        0 12px 28px rgba(0,0,0,0.7);
+}
+
+/* ================= TABLE CONTAINER ================= */
+
+.table-container{
+    max-height:520px;
+
+    overflow-y:auto;
+    overflow-x:auto;
+
+    width:98%;
+    margin:15px auto;
+
+    border-radius:14px;
+
+    position:relative;
+
+    scroll-behavior:smooth;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.35);
+}
+
+/* ================= TABLE ================= */
+
+table{
+    width:100%;
+
+    border-collapse:separate;
+    border-spacing:0;
+
+    background:white;
+    color:black;
+
+    font-weight:bold;
+    font-size:18px;
+
+    position:relative;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.7),
+        0 0 20px rgba(0,0,0,0.25);
+}
+
+/* ================= FIXED HEADER ================= */
+
+thead th{
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    background: linear-gradient(145deg,#0b3d91,#072c6b);
+
+    color:white;
+
+    padding:14px 12px;
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    text-align:center;
+
+    box-shadow:
+        inset -3px -3px 8px rgba(255,255,255,0.08),
+        inset 3px 3px 10px rgba(0,0,0,0.85),
+        0 4px 10px rgba(0,0,0,0.35);
+}
+
+/* 🔥 HEADER BOTTOM GLOW LINE */
+
+thead th::after{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:-2px;
+
+    width:100%;
+    height:3px;
+
+    background:#38bdf8;
+
+    box-shadow:
+        0 0 10px #38bdf8,
+        0 0 20px #38bdf8;
+}
+
+/* ================= CELLS ================= */
+
+td{
+    padding:10px;
+
+    border:1px solid rgba(0,0,0,0.15);
+
+    background: linear-gradient(145deg,#ffffff,#eef2f7);
+
+    color:black;
+    text-align:center;
+
+    transition:0.2s;
+
+    box-shadow:
+        inset -2px -2px 4px rgba(255,255,255,0.7),
+        inset 2px 2px 4px rgba(0,0,0,0.18);
+}
+
+/* ================= ROW HOVER ================= */
+
+tbody tr{
+    transition:all .18s ease;
+}
+
+tbody tr:hover td{
+    background:#1e3a8a !important;
+    color:white !important;
+
+    text-shadow:0 0 5px rgba(255,255,255,0.6);
+}
+
+/* ================= SCROLL ================= */
+
+.table-container::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+}
+
+.table-container::-webkit-scrollbar-thumb{
+    background:#0b3d91;
+    border-radius:10px;
+}
+
+.table-container::-webkit-scrollbar-track{
+    background:#dbeafe;
+}
+
+/* ================= REPORT TIME ================= */
+
+#reportTime{
+    color:white;
+    font-weight:bold;
+
+    width:100%;
+    text-align:center;
+
+    margin:15px auto;
+
+    text-shadow:0 0 10px rgba(255,255,255,0.5);
+}
+
+/* ================= SEARCH ================= */
+
+#search{
+    width:220px;
+    max-width:90%;
+
+    padding:8px 12px;
+
+    border:none;
+    border-radius:8px;
+
+    outline:none;
+
+    background:white;
+    color:black;
+
+    margin:10px auto;
+    display:block;
+
+    text-align:center;
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,0.35);
+
+    transition:0.2s;
+}
+
+#search:focus{
+    transform:scale(1.03);
+
+    box-shadow:
+        0 0 15px rgba(14,165,233,0.8),
+        0 6px 18px rgba(0,0,0,0.35);
+}
+
+/* ================= ALERT ================= */
+
+#liveAlert{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+
+    background: linear-gradient(145deg,#0ea5e9,#0369a1);
+
+    color:white;
+
+    padding:14px 24px;
+    border-radius:12px;
+
+    display:none;
+    z-index:999;
+
+    box-shadow:
+        0 0 30px rgba(14,165,233,0.9),
+        0 0 60px rgba(14,165,233,0.5);
+}
+
+@keyframes blinkSmooth{
+    0%{opacity:1; transform:scale(1);}
+    50%{opacity:0.75; transform:scale(1.08);}
+    100%{opacity:1; transform:scale(1);}
+}
+
+.blink{
+    animation:blinkSmooth 0.9s infinite;
+}
+
+/* ================= BRANDING ================= */
+
+#branding,
+#brandingLive{
+    margin:20px auto;
+
+    font-size:14px;
+    color:white;
+
+    text-align:center;
+    width:100%;
+
+    text-shadow:0 0 10px rgba(255,255,255,0.55);
+}
+/* ================= PREMIUM FLOAT CONDITIONAL ================= */
+
+.green3d,
+.yellow3d,
+.red3d{
+
+    position:relative;
+
+    transition:all .22s ease;
+
+    transform:translateY(-2px);
+
+    border-radius:6px;
+
+    animation:floatGlow 2s ease-in-out infinite alternate;
+}
+
+/* ================= GREEN ================= */
+
+.green3d{
+
+    background:
+        linear-gradient(
+            145deg,
+            #22c55e,
+            #15803d
+        ) !important;
+
+    color:white !important;
+
+    box-shadow:
+        0 3px 10px rgba(34,197,94,.35),
+        inset 0 1px 1px rgba(255,255,255,.2);
+}
+
+/* ================= YELLOW ================= */
+
+.yellow3d{
+
+    background:
+        linear-gradient(
+            145deg,
+            #facc15,
+            #ca8a04
+        ) !important;
+
+    color:black !important;
+
+    box-shadow:
+        0 3px 10px rgba(250,204,21,.35),
+        inset 0 1px 1px rgba(255,255,255,.2);
+}
+
+/* ================= RED ================= */
+
+.red3d{
+
+    background:
+        linear-gradient(
+            145deg,
+            #dc2626,
+            #7f1d1d
+        ) !important;
+
+    color:white !important;
+
+    box-shadow:
+        0 3px 10px rgba(220,38,38,.35),
+        inset 0 1px 1px rgba(255,255,255,.15);
+}
+
+/* ================= FLOAT EFFECT ================= */
+
+@keyframes floatGlow{
+
+    from{
+        transform:translateY(-1px);
+    }
+
+    to{
+        transform:translateY(-3px);
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+    h2{
+        font-size:22px;
+    }
+
+    #cards{
+        gap:10px;
+    }
+
+    .card{
+        width:130px;
+        padding:12px;
+    }
+
+    table{
+        font-size:12px;
+    }
+
+    button{
+        min-width:110px;
+    }
+
+    .box{
+        width:92%;
+    }
+
+    .table-container{
+        overflow:auto;
+    }
+}
+
+
+/* ================= FINAL THEME: LIGHT SAGE + FOREST GREEN ================= */
+body{
+    color:#20352A;
+    background:#F2F6F0;
+    animation:none;
+    font-weight:600;
+}
+h2{
+    color:#19452E;
+    text-shadow:none;
+    font-weight:750;
+}
+#reportTime{color:#52705D;text-shadow:none;}
+.container{background:transparent;}
+.box{
+    background:#FFFFFF;
+    color:#234431;
+    border:1px solid #D7E5D4;
+    box-shadow:0 10px 28px rgba(34,75,49,.09);
+    backdrop-filter:none;
+}
+.box h2{color:#19452E;}
+.box p{color:#385A43;}
+button{
+    background:#23633D;
+    color:#FFFFFF;
+    box-shadow:none;
+    border:1px solid #23633D;
+    font-weight:700;
+}
+button:hover{
+    transform:translateY(-1px);
+    background:#194D30;
+    box-shadow:0 4px 10px rgba(35,99,61,.14);
+}
+#search{
+    background:#FFFFFF;
+    color:#20352A;
+    border:1px solid #C9DCC7;
+    box-shadow:0 2px 8px rgba(31,73,44,.06);
+}
+#search:focus{transform:none;box-shadow:0 0 0 3px rgba(110,157,104,.16);}
+#cards{gap:12px;margin:16px auto;}
+.card{
+    background:#E5EFE2;
+    color:#19452E;
+    border:1px solid #D1E2CD;
+    box-shadow:none;
+    border-radius:12px;
+    transition:background .18s ease;
+}
+.card:hover{transform:none;box-shadow:none;background:#DCEAD8;}
+.table-container{box-shadow:0 4px 16px rgba(34,75,49,.08);border:1px solid #D6E3D2;}
+table{
+    background:#FFFFFF;
+    color:#26392D;
+    font-size:15px;
+    box-shadow:none;
+}
+thead th{
+    background:#23633D;
+    color:#FFFFFF;
+    border:1px solid #34744C;
+    box-shadow:none;
+    padding:12px 10px;
+}
+thead th::after{display:none;}
+tbody tr:nth-child(even) td{background:#F1F6EF;}
+tbody tr:nth-child(odd) td{background:#FFFFFF;}
+tbody tr:hover td{background:#E2EEDF !important;color:#183B27 !important;text-shadow:none;}
+td{
+    color:#26392D;
+    border:1px solid #E0E9DD;
+    box-shadow:none;
+    transition:background .15s ease;
+}
+.green3d,.yellow3d,.red3d{
+    transform:none;
+    animation:none;
+    border-radius:4px;
+    box-shadow:none;
+    font-weight:750;
+}
+.green3d{background:#D8EBD6 !important;color:#205B32 !important;border:1px solid #B9D8B6;}
+.yellow3d{background:#FFF0C7 !important;color:#74520A !important;border:1px solid #F0D98F;}
+.red3d{background:#F8DEDA !important;color:#8A2D25 !important;border:1px solid #EDC1BB;}
+#liveAlert{background:#23633D;box-shadow:0 6px 18px rgba(35,99,61,.18);}
+#branding,#brandingLive{color:#52705D;text-shadow:none;}
+.table-container::-webkit-scrollbar-thumb{background:#8FB28A;}
+.table-container::-webkit-scrollbar-track{background:#E7EFE4;}
+@media(max-width:768px){table{font-size:12px;}}
+
+
+/* FINAL CLEANUP: static sage theme, readable text, compact table */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { max-width: 100%; overflow-x: hidden; }
+body { background: #F2F6F0 !important; color: #20352A !important; animation: none !important; }
+body, button, .card, tbody tr, td, #search { animation: none !important; }
+button, .card, #search, tbody tr, td { transition: none !important; }
+button:hover, .card:hover, #search:focus { transform: none !important; box-shadow: none !important; }
+.table-container { width: 98%; max-width: 98%; overflow-x: hidden !important; overflow-y: auto; box-shadow: none !important; }
+table { width: 100% !important; table-layout: fixed; font-size: clamp(10px, 0.9vw, 13px) !important; }
+thead th, td { padding: 7px 4px !important; overflow-wrap: anywhere; word-break: normal; white-space: normal; }
+thead th { background: #23633D !important; color: #FFFFFF !important; }
+td { color: #26392D !important; }
+#branding, #brandingLive, body > div[style*="Powered by"] { color: #52705D !important; text-shadow: none !important; }
+@media (max-width: 900px) {
+  .table-container { overflow-x: hidden !important; }
+  table { font-size: 10px !important; }
+  thead th, td { padding: 5px 2px !important; }
+}
+
+/* User-requested final polish: black branding and slightly darker subtle borders */
+#branding, #brandingLive, body > div[style*="Powered by"] {
+    color: #000000 !important;
+    text-shadow: none !important;
+}
+.box { border-color: #B8C9B4 !important; }
+.card { border-color: #B6C9B2 !important; }
+.table-container { border: 1px solid #B6C9B2 !important; }
+td { border-color: #C2D0BE !important; }
+thead th { border-color: #4C775B !important; }
+#search { border-color: #B6C9B2 !important; }
+
+
+/* Final table polish: compact S.No, keep full agent names on one line */
+#table th:first-child, #table td:first-child {
+  width: 1%;
+  min-width: 1%;
+  white-space: nowrap !important;
+  padding-left: 7px !important;
+  padding-right: 7px !important;
+}
+#table th:nth-child(3), #table td:nth-child(3) {
+  width: 190px;
+  min-width: 190px;
+  white-space: nowrap !important;
+  overflow-wrap: normal !important;
+  word-break: keep-all !important;
+}
+#branding, #brandingLive { color: #000000 !important; }
+
+
+/* =========================================================
+   EMERALD MANDALA LIVE REDESIGN — visual layer only
+   Keeps existing IDs, data logic, Firebase and thresholds.
+   ========================================================= */
+:root {
+  --em-900: #064e3b;
+  --em-800: #065f46;
+  --em-700: #047857;
+  --em-600: #059669;
+  --em-300: #6ee7b7;
+  --sage-50: #f7fbf6;
+  --sage-100: #edf7ee;
+  --sage-200: #d8eadb;
+  --ink: #173b2d;
+}
+
+html, body { min-height: 100%; }
+body {
+  position: relative !important;
+  isolation: isolate;
+  overflow-x: hidden !important;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.98) 0%, rgba(247,251,246,.97) 42%, rgba(230,245,232,.95) 100%) !important;
+  color: var(--ink) !important;
+  font-family: Inter, "Segoe UI", Arial, sans-serif !important;
+  animation: none !important;
+}
+
+/* Two rotating mandalas with petal geometry and fine spokes */
+body::before, body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  width: min(48vw, 690px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  opacity: .19;
+  background:
+    radial-gradient(circle, transparent 0 10%, rgba(5,150,105,.18) 10.2% 10.6%, transparent 10.9% 19%, rgba(5,150,105,.22) 19.2% 19.7%, transparent 20% 29%, rgba(5,150,105,.18) 29.2% 29.7%, transparent 30% 40%, rgba(5,150,105,.20) 40.2% 40.7%, transparent 41% 49%, rgba(5,150,105,.22) 49.2% 49.7%, transparent 50%),
+    repeating-conic-gradient(from 0deg, rgba(4,120,87,.30) 0deg 1.1deg, transparent 1.1deg 11.25deg),
+    repeating-conic-gradient(from 5.625deg, transparent 0deg 3deg, rgba(16,185,129,.20) 3deg 5.5deg, transparent 5.5deg 22.5deg),
+    radial-gradient(circle, rgba(167,243,208,.08) 0 26%, rgba(5,150,105,.07) 27% 48%, transparent 49%);
+  -webkit-mask-image: radial-gradient(circle, #000 0 65%, rgba(0,0,0,.85) 74%, transparent 100%);
+  mask-image: radial-gradient(circle, #000 0 65%, rgba(0,0,0,.85) 74%, transparent 100%);
+  animation: mandalaOrbit 76s linear infinite;
+}
+body::before { top: 5vh; left: -19vw; }
+body::after {
+  width: min(40vw, 570px);
+  top: 19vh;
+  right: -16vw;
+  opacity: .14;
+  animation-direction: reverse;
+  animation-duration: 94s;
+  transform-origin: center;
+}
+@keyframes mandalaOrbit { to { rotate: 360deg; } }
+
+/* Make the title area feel like a designed header, not plain text */
+h2 {
+  position: relative !important;
+  z-index: 1;
+  display: inline-block;
+  max-width: calc(100% - 28px);
+  margin: 24px auto 10px !important;
+  padding: 8px 24px 12px !important;
+  border-radius: 18px;
+  color: var(--em-900) !important;
+  font-size: clamp(24px, 2.4vw, 39px) !important;
+  line-height: 1.2;
+  letter-spacing: -.6px;
+  text-shadow: 0 2px 0 rgba(255,255,255,.85), 0 8px 28px rgba(5,150,105,.12) !important;
+}
+h2::after {
+  content: "CALL  •  CONNECT  •  SERVE  •  PERFORM";
+  display: block;
+  margin-top: 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #4c7a63;
+  text-shadow: none;
+}
+#reportTime {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: auto !important;
+  max-width: calc(100% - 28px);
+  margin: 8px auto 15px !important;
+  padding: 10px 18px;
+  border: 1px solid rgba(5,150,105,.16);
+  border-radius: 999px;
+  background: rgba(230,247,234,.88);
+  color: var(--em-800) !important;
+  text-shadow: none !important;
+  box-shadow: 0 5px 18px rgba(6,95,70,.06), inset 0 1px 0 rgba(255,255,255,.9);
+}
+#reportTime::before { content: "◷"; font-size: 17px; color: var(--em-700); }
+
+/* Search and actions: modern aligned toolbar treatment */
+#search {
+  width: min(420px, calc(100% - 36px)) !important;
+  min-height: 44px;
+  padding: 12px 17px !important;
+  border: 1px solid #bdd8c2 !important;
+  border-radius: 14px !important;
+  background: rgba(255,255,255,.96) !important;
+  color: #173b2d !important;
+  text-align: left !important;
+  box-shadow: 0 7px 22px rgba(6,95,70,.08) !important;
+  transition: box-shadow .25s ease, border-color .25s ease, transform .25s ease !important;
+}
+#search:focus {
+  border-color: #10a873 !important;
+  box-shadow: 0 0 0 4px rgba(16,185,129,.12), 0 9px 24px rgba(6,95,70,.10) !important;
+  transform: translateY(-1px) !important;
+}
+body > div[style*="display:flex"] { margin: 8px auto 20px !important; gap: 12px !important; }
+button {
+  background: linear-gradient(135deg, #08764f, #065f46) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,.25) !important;
+  border-radius: 12px !important;
+  padding: 11px 20px !important;
+  box-shadow: 0 7px 16px rgba(6,95,70,.16), inset 0 1px 0 rgba(255,255,255,.22) !important;
+  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease !important;
+}
+button:hover {
+  transform: translateY(-2px) !important;
+  filter: brightness(1.06);
+  box-shadow: 0 10px 22px rgba(6,95,70,.22), 0 0 0 3px rgba(16,185,129,.08) !important;
+}
+
+/* KPI cards: white surfaces, green accent and gentle motion */
+#cards {
+  position: relative;
+  z-index: 1;
+  display: grid !important;
+  grid-template-columns: repeat(6, minmax(135px, 1fr));
+  align-items: stretch !important;
+  gap: 14px !important;
+  width: min(96%, 1640px) !important;
+  margin: 24px auto 28px !important;
+}
+.card {
+  position: relative;
+  min-width: 0;
+  padding: 20px 13px 18px !important;
+  border: 1px solid #d2e6d4 !important;
+  border-radius: 18px !important;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(248,253,248,.95)) !important;
+  color: var(--em-900) !important;
+  font-size: clamp(14px, 1.05vw, 18px) !important;
+  line-height: 1.35;
+  box-shadow: 0 8px 22px rgba(6,95,70,.08), inset 0 1px 0 rgba(255,255,255,.95) !important;
+  transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease !important;
+  animation: cardArrive .7s ease both !important;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0; top: 0; bottom: 0;
+  width: 5px;
+  background: linear-gradient(180deg, #6ee7b7, #047857);
+}
+.card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 120px; height: 120px;
+  right: -50px; top: -55px;
+  border-radius: 50%;
+  border: 1px solid rgba(16,185,129,.14);
+  box-shadow: 0 0 0 10px rgba(16,185,129,.035), 0 0 0 22px rgba(16,185,129,.025);
+  animation: cardAura 9s ease-in-out infinite alternate !important;
+}
+.card:nth-child(2)::before { background: linear-gradient(180deg,#86efac,#059669); }
+.card:nth-child(3)::before { background: linear-gradient(180deg,#fde68a,#d97706); }
+.card:nth-child(4)::before { background: linear-gradient(180deg,#fda4af,#e11d48); }
+.card:nth-child(5)::before { background: linear-gradient(180deg,#c4b5fd,#7c3aed); }
+.card:nth-child(6)::before { background: linear-gradient(180deg,#99f6e4,#0f9f8f); }
+.card:hover {
+  transform: translateY(-4px) !important;
+  border-color: #9bcdb0 !important;
+  box-shadow: 0 15px 30px rgba(6,95,70,.13), 0 0 0 3px rgba(16,185,129,.05) !important;
+}
+@keyframes cardArrive { from { opacity: .6; translate: 0 8px; } to { opacity: 1; translate: 0 0; } }
+@keyframes cardAura { from { transform: rotate(0deg) scale(.94); opacity: .55; } to { transform: rotate(25deg) scale(1.08); opacity: 1; } }
+
+/* Report table: crisp green header, light sage rows and stronger fine borders */
+.table-container {
+  position: relative;
+  z-index: 1;
+  width: min(98%, 1800px) !important;
+  max-width: 98% !important;
+  margin: 20px auto !important;
+  border: 1px solid #b8d3bd !important;
+  border-radius: 15px !important;
+  overflow: auto !important;
+  background: rgba(255,255,255,.85);
+  box-shadow: 0 10px 28px rgba(6,95,70,.10) !important;
+}
+table {
+  background: rgba(255,255,255,.97) !important;
+  color: #173b2d !important;
+  box-shadow: none !important;
+  font-weight: 650 !important;
+}
+thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: linear-gradient(120deg, #086b49, #047857 58%, #059669) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  padding: 10px 6px !important;
+  box-shadow: inset 0 -2px 0 rgba(110,231,183,.75) !important;
+}
+thead th::after { display: none !important; }
+td {
+  background: rgba(255,255,255,.96) !important;
+  color: #20392c !important;
+  border: 1px solid #d2e2d1 !important;
+  padding: 8px 5px !important;
+  box-shadow: none !important;
+}
+tbody tr:nth-child(even) td { background: #f0f7ef !important; }
+tbody tr:hover td {
+  background: #e2f4e7 !important;
+  color: #064e3b !important;
+  text-shadow: none !important;
+}
+/* Keep status colors obvious without heavy 3D pulsing */
+.green3d, .yellow3d, .red3d {
+  animation: none !important;
+  transform: none !important;
+  border-radius: 4px !important;
+  font-weight: 750 !important;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.04) !important;
+}
+.green3d { background: #d9f2df !important; color: #075b31 !important; }
+.yellow3d { background: #fff0c2 !important; color: #805400 !important; }
+.red3d { background: #fee2e2 !important; color: #b42318 !important; }
+#liveAlert {
+  background: linear-gradient(135deg, #08764f, #059669) !important;
+  box-shadow: 0 10px 28px rgba(6,95,70,.24) !important;
+}
+#branding, #brandingLive, body > div[style*="Powered by"] { color: #000 !important; text-shadow: none !important; }
+
+@media (max-width: 1100px) {
+  #cards { grid-template-columns: repeat(3, minmax(135px, 1fr)); }
+  body::before { width: 64vw; left: -29vw; }
+  body::after { width: 55vw; right: -25vw; }
+}
+@media (max-width: 650px) {
+  h2 { margin-top: 16px !important; padding: 6px 8px 8px !important; font-size: 22px !important; }
+  h2::after { font-size: 8px; letter-spacing: 1.5px; }
+  #reportTime { font-size: 12px; padding: 8px 12px; }
+  #cards { grid-template-columns: repeat(2, minmax(120px, 1fr)); gap: 9px !important; width: calc(100% - 20px) !important; margin: 17px auto 20px !important; }
+  .card { padding: 15px 9px !important; font-size: 13px !important; border-radius: 14px !important; }
+  .table-container { width: 98% !important; overflow-x: auto !important; }
+  table { min-width: 900px; font-size: 12px !important; table-layout: auto !important; }
+  thead th, td { white-space: nowrap !important; padding: 7px 6px !important; }
+  #table th:first-child, #table td:first-child { min-width: 45px !important; }
+  #table th:nth-child(3), #table td:nth-child(3) { min-width: 170px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::before, body::after, .card, .card::after { animation: none !important; }
+  button, .card, #search { transition: none !important; }
+}
+
+/* Exact supplied floral mandala artwork: transparent PNG, softly rotating at the sides */
+body::before, body::after {
+  content: "" !important;
+  position: fixed !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  width: min(49vw, 760px) !important;
+  aspect-ratio: 1.51 / 1 !important;
+  height: auto !important;
+  border-radius: 0 !important;
+  background-image: url("mandala-exact.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  background-color: transparent !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  opacity: .16 !important;
+  animation: exactMandalaRotate 90s linear infinite !important;
+  transform-origin: center center !important;
+}
+body::before { top: 12vh !important; left: -19vw !important; }
+body::after {
+  top: 21vh !important;
+  right: -19vw !important;
+  width: min(43vw, 660px) !important;
+  opacity: .13 !important;
+  animation-duration: 110s !important;
+  animation-direction: reverse !important;
+}
+@keyframes exactMandalaRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+/* Keep dashboard content above the decorative art */
+body > * { position: relative; z-index: 1; }
+body { background: radial-gradient(ellipse at center, #fbfdf9 0%, #f2f8f0 72%, #e8f3e8 100%) !important; }
+@media (max-width: 1100px) {
+  body::before { width: 64vw !important; left: -31vw !important; top: 18vh !important; }
+  body::after { width: 57vw !important; right: -29vw !important; top: 24vh !important; }
+}
+@media (max-width: 650px) {
+  body::before { width: 82vw !important; left: -48vw !important; top: 17vh !important; opacity: .10 !important; }
+  body::after { width: 75vw !important; right: -46vw !important; top: 25vh !important; opacity: .09 !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::before, body::after { animation: none !important; }
+}
+
+
+/* Final placement: larger mandalas frame the two lower table corners and rotate in place */
+body::before, body::after {
+  position: fixed !important;
+  top: auto !important;
+  bottom: -190px !important;
+  width: min(54vw, 900px) !important;
+  height: min(54vw, 900px) !important;
+  aspect-ratio: 1 / 1 !important;
+  background-size: contain !important;
+  opacity: .20 !important;
+  z-index: 0 !important;
+  animation: exactMandalaRotate 100s linear infinite !important;
+  transform-origin: 50% 50% !important;
+}
+body::before {
+  left: -190px !important;
+  right: auto !important;
+}
+body::after {
+  right: -190px !important;
+  left: auto !important;
+  width: min(54vw, 900px) !important;
+  height: min(54vw, 900px) !important;
+  bottom: -190px !important;
+  opacity: .18 !important;
+  animation-duration: 115s !important;
+  animation-direction: reverse !important;
+}
+@media (max-width: 1100px) {
+  body::before, body::after {
+    width: 58vw !important;
+    height: 58vw !important;
+    bottom: -100px !important;
+  }
+  body::before { left: -150px !important; }
+  body::after { right: -150px !important; }
+}
+@media (max-width: 650px) {
+  body::before, body::after {
+    width: 66vw !important;
+    height: 66vw !important;
+    bottom: -70px !important;
+    opacity: .11 !important;
+  }
+  body::before { left: -42vw !important; }
+  body::after { right: -42vw !important; }
+}
+
+
+/* FIX: keep mandalas in one fixed place at the report table corners, not across the full page */
+body::before, body::after {
+  content: none !important;
+  animation: none !important;
+  background-image: none !important;
+}
+.table-container {
+  position: relative !important;
+  isolation: isolate !important;
+}
+.table-container::before, .table-container::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: clamp(180px, 22vw, 360px) !important;
+  height: clamp(180px, 22vw, 360px) !important;
+  background: url("mandala-exact.png") center / contain no-repeat !important;
+  opacity: .12 !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  animation: tableCornerMandala 100s linear infinite !important;
+  transform-origin: center center !important;
+}
+.table-container::before { left: -90px !important; }
+.table-container::after { right: -90px !important; animation-direction: reverse !important; animation-duration: 115s !important; }
+.table-container table { position: relative !important; z-index: 1 !important; background: transparent !important; }
+.table-container thead, .table-container tbody { position: relative !important; z-index: 1 !important; }
+@keyframes tableCornerMandala { from { rotate: 0deg; } to { rotate: 360deg; } }
+@media (max-width: 650px) {
+  .table-container::before, .table-container::after { width: 150px !important; height: 150px !important; opacity: .08 !important; }
+  .table-container::before { left: -65px !important; }
+  .table-container::after { right: -65px !important; }
+}
+
+
+/* FINAL USER REQUEST: crop mandala centers off-canvas; show only outer petals in upper corners */
+body::before, body::after {
+  content: "" !important;
+  display: block !important;
+  position: fixed !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  top: -330px !important;
+  width: clamp(390px, 43vw, 700px) !important;
+  height: clamp(390px, 43vw, 700px) !important;
+  aspect-ratio: 1 / 1 !important;
+  background: url("mandala-exact.png") center / contain no-repeat !important;
+  opacity: .23 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  animation: cornerMandalaSpin 105s linear infinite !important;
+  transform-origin: center center !important;
+}
+body::before { left: -340px !important; right: auto !important; }
+body::after { right: -340px !important; left: auto !important; animation-direction: reverse !important; animation-duration: 120s !important; opacity: .20 !important; }
+@keyframes cornerMandalaSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* Slightly tighter title-to-content rhythm and premium sage background */
+body { background: radial-gradient(ellipse at center, #fbfefb 0%, #f2f9f2 68%, #e7f5e9 100%) !important; }
+#reportTime { margin: 12px auto 16px !important; }
+#cards {
+  width: min(96%, 1660px) !important;
+  gap: 16px !important;
+  margin: 18px auto 14px !important;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+}
+.card {
+  min-height: 118px !important;
+  box-sizing: border-box !important;
+  padding: 18px 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  border-radius: 18px !important;
+  border: 1px solid #c7e8d1 !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(242,252,246,.96)) !important;
+  box-shadow: 0 10px 24px rgba(7,111,73,.10), inset 0 1px 0 rgba(255,255,255,.95) !important;
+  overflow: hidden !important;
+  text-align: center !important;
+}
+.card::after { display: none !important; content: none !important; }
+.card-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 36px !important; height: 36px !important;
+  border-radius: 50% !important;
+  background: #ddf8e9 !important;
+  color: #08784e !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+}
+.card-label { color: #205b43 !important; font-size: clamp(12px, .92vw, 16px) !important; font-weight: 700 !important; line-height: 1.25 !important; }
+.card-value { color: #064e3b !important; font-size: clamp(20px, 1.55vw, 28px) !important; font-weight: 850 !important; line-height: 1.12 !important; letter-spacing: -.3px !important; }
+.card:nth-child(3) .card-icon { background: #fff0d5 !important; color: #b86b08 !important; }
+.card:nth-child(4) .card-icon { background: #ffe2e7 !important; color: #be123c !important; }
+.card:nth-child(5) .card-icon { background: #eee7ff !important; color: #6d28d9 !important; }
+.card:nth-child(6) .card-icon { background: #dff4ff !important; color: #0369a1 !important; }
+
+/* Search and action controls sit at the upper-left of the report table */
+.report-toolbar {
+  width: min(98%, 1800px) !important;
+  margin: 0 auto 6px !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+.report-toolbar #search {
+  width: min(360px, 40vw) !important;
+  max-width: 100% !important;
+  margin: 0 4px 0 0 !important;
+  box-sizing: border-box !important;
+  height: 43px !important;
+  padding: 10px 14px !important;
+}
+.report-toolbar button { margin: 0 !important; padding: 11px 18px !important; }
+.table-container { margin: 0 auto 18px !important; position: relative !important; isolation: isolate !important; }
+.table-container::before, .table-container::after { display: none !important; content: none !important; }
+
+@media (max-width: 1050px) {
+  #cards { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  body::before, body::after { width: 440px !important; height: 440px !important; top: -260px !important; }
+  body::before { left: -260px !important; } body::after { right: -260px !important; }
+}
+@media (max-width: 650px) {
+  #cards { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px !important; margin: 14px auto 12px !important; }
+  .card { min-height: 104px !important; padding: 12px 8px !important; }
+  .card-icon { width: 30px !important; height: 30px !important; font-size: 18px !important; }
+  .card-value { font-size: 20px !important; }
+  .report-toolbar { width: 96% !important; gap: 7px !important; }
+  .report-toolbar #search { width: 100% !important; margin: 0 0 3px !important; }
+  body::before, body::after { width: 340px !important; height: 340px !important; top: -205px !important; opacity: .14 !important; }
+  body::before { left: -220px !important; } body::after { right: -220px !important; }
+}
+
+/* FINAL CORNER FIX: mandala centers stay off-screen and rotate around fixed pivots */
+body::before,
+body::after {
+  content: "" !important;
+  display: block !important;
+  position: fixed !important;
+  top: -430px !important;
+  width: clamp(560px, 48vw, 760px) !important;
+  height: clamp(560px, 48vw, 760px) !important;
+  background-image: url("mandala-exact.png") !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  opacity: .28 !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform-origin: 50% 50% !important;
+  animation: fixedCornerMandalaSpin 100s linear infinite !important;
+  will-change: transform !important;
+}
+body::before {
+  left: -470px !important;
+  right: auto !important;
+}
+body::after {
+  right: -470px !important;
+  left: auto !important;
+  animation-direction: reverse !important;
+  animation-duration: 112s !important;
+  opacity: .25 !important;
+}
+@keyframes fixedCornerMandalaSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@media (max-width: 900px) {
+  body::before, body::after {
+    top: -300px !important;
+    width: 470px !important;
+    height: 470px !important;
+    opacity: .17 !important;
+  }
+  body::before { left: -360px !important; }
+  body::after { right: -360px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::before, body::after { animation: none !important; }
+}
+
+
+/* FINAL OVERRIDE: mirror the same mandala artwork in both upper corners.
+   Each artwork is anchored to a fixed viewport position and rotates around its own center. */
+body::before,
+body::after {
+  content: "" !important;
+  display: block !important;
+  position: fixed !important;
+  top: -410px !important;
+  width: 660px !important;
+  height: 660px !important;
+  aspect-ratio: 1 / 1 !important;
+  background-image: url("mandala-exact.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: contain !important;
+  opacity: .25 !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform-origin: 50% 50% !important;
+  animation: mandalaFixedPivot 105s linear infinite !important;
+  will-change: transform;
+}
+body::before {
+  left: -335px !important;
+  right: auto !important;
+  animation-direction: normal !important;
+}
+body::after {
+  right: -335px !important;
+  left: auto !important;
+  animation-direction: reverse !important;
+  animation-duration: 115s !important;
+  opacity: .23 !important;
+}
+@keyframes mandalaFixedPivot {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@media (max-width: 900px) {
+  body::before, body::after {
+    top: -320px !important;
+    width: 500px !important;
+    height: 500px !important;
+    opacity: .18 !important;
+  }
+  body::before { left: -300px !important; }
+  body::after { right: -300px !important; }
+}
+@media (max-width: 600px) {
+  body::before, body::after {
+    top: -230px !important;
+    width: 360px !important;
+    height: 360px !important;
+    opacity: .13 !important;
+  }
+  body::before { left: -240px !important; }
+  body::after { right: -240px !important; }
+}
+
+
+/* FINAL FIX: keep mandala artwork anchored to the two upper viewport corners.
+   Only each artwork rotates around its own fixed center; page/content never rotates. */
+body::before,
+body::after {
+  content: "" !important;
+  display: block !important;
+  position: fixed !important;
+  top: -365px !important;
+  width: 730px !important;
+  height: 730px !important;
+  background: url("mandala-exact.png") center / contain no-repeat !important;
+  opacity: .28 !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  transform-origin: 50% 50% !important;
+  animation: mandalaCornerOnlySpin 110s linear infinite !important;
+  will-change: transform;
+}
+body::before {
+  left: -365px !important;
+  right: auto !important;
+  animation-direction: normal !important;
+}
+body::after {
+  right: -365px !important;
+  left: auto !important;
+  animation-direction: reverse !important;
+  animation-duration: 120s !important;
+  opacity: .26 !important;
+}
+@keyframes mandalaCornerOnlySpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@media (max-width: 900px) {
+  body::before, body::after {
+    top: -270px !important;
+    width: 540px !important;
+    height: 540px !important;
+    opacity: .19 !important;
+  }
+  body::before { left: -270px !important; }
+  body::after { right: -270px !important; }
+}
+@media (max-width: 600px) {
+  body::before, body::after {
+    top: -190px !important;
+    width: 380px !important;
+    height: 380px !important;
+    opacity: .14 !important;
+  }
+  body::before { left: -190px !important; }
+  body::after { right: -190px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::before, body::after { animation: none !important; }
+}
+
+
+/* FINAL REQUEST: Bhopal live clock, visible report timestamp icon, and solid red alert cells */
+#reportTime::before { content: none !important; display: none !important; }
+#reportTime .report-time-icon { display: inline-flex !important; align-items: center; justify-content: center; font-size: 17px; line-height: 1; }
+#bhopalClock {
+  margin-left: auto !important;
+  margin-right: 2px !important;
+  padding: 10px 16px !important;
+  min-height: 43px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border: 1px solid rgba(5,150,105,.28);
+  border-radius: 12px;
+  background: rgba(229,247,234,.94);
+  color: #075b43;
+  font: 800 15px/1.2 "Segoe UI", Arial, sans-serif;
+  letter-spacing: .2px;
+  box-shadow: 0 4px 14px rgba(6,95,70,.08), inset 0 1px 0 rgba(255,255,255,.9);
+  position: relative;
+  z-index: 3;
+}
+#table td.red3d {
+  background: #fee2e2 !important;
+  background-color: #fee2e2 !important;
+  color: #b42318 !important;
+  border: 1px solid #efaaaa !important;
+  box-shadow: inset 0 0 0 9999px #fee2e2 !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+#table td.red3d * { background: transparent !important; color: #b42318 !important; }
+.report-toolbar { min-height: 44px; }
+@media (max-width: 850px) {
+  #bhopalClock { margin-left: 0 !important; width: 100%; justify-content: flex-start; font-size: 13px; }
+}
+
+
+/* FINAL USER PLACEMENT: keep both mandalas anchored inside the marked top corners. */
+body::before, body::after {
+  position: fixed !important; top: -267px !important;
+  width: 530px !important; height: 530px !important;
+  background: url("mandala-exact.png") center / cover no-repeat !important;
+  transform-origin: 50% 50% !important;
+  pointer-events: none !important; z-index: 0 !important;
+  animation: mandalaCornerOnlySpin 110s linear infinite !important;
+}
+body::before { left: 0 !important; right: auto !important; opacity: .28 !important; }
+body::after { right: 0 !important; left: auto !important; opacity: .26 !important; animation-direction: reverse !important; animation-duration: 120s !important; }
+/* Keep the decorative artwork rotating in place without moving page content. */
+h2::after { content: none !important; display: none !important; }
+#cards { gap: 8px !important; margin-top: 12px !important; margin-bottom: 10px !important; }
+.card { margin: 0 !important; }
+#bhopalClock::before { content: "Current Time: "; font-weight: 800; }
+@media (max-width: 900px) {
+  body::before, body::after { top: -200px !important; width: 400px !important; height: 400px !important; }
+}
+@media (max-width: 600px) {
+  body::before, body::after { top: -150px !important; width: 300px !important; height: 300px !important; opacity: .14 !important; }
+  #cards { gap: 8px !important; }
+}
+
+/* FINAL REQUEST: remove the unreliable mandala artwork completely */
+body::before, body::after,
+.table-container::before, .table-container::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  animation: none !important;
+}
+
+/* Keep report headers frozen while scrolling the result rows */
+.table-container {
+  overflow: auto !important;
+  max-height: 520px !important;
+  position: relative !important;
+}
+#table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+#table thead th {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 50 !important;
+  background: #087653 !important;
+  color: #fff !important;
+}
+
+/* S.No column width requested: 5.5% of the report table */
+#table th:first-child, #table td:first-child {
+  width: 5.5% !important;
+  min-width: 5.5% !important;
+  max-width: 5.5% !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+}
+
+
+/* FINAL USER REQUEST: sage-green dashboard, no mandala, tighter KPI cards, sticky table header */
+body::before, body::after,
+.table-container::before, .table-container::after,
+.mandala, .mandala-left, .mandala-right, .mandala-art, [class*="mandala"] {
+  display: none !important;
+  content: none !important;
+  background-image: none !important;
+  animation: none !important;
+}
+body { background: #eef7ef !important; color: #174b3b !important; }
+#cards {
+  display: grid !important;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  margin: 18px 16px 12px !important;
+  justify-content: stretch !important;
+}
+#cards > * { min-width: 0 !important; margin: 0 !important; }
+.table-container {
+  max-height: 62vh !important;
+  overflow: auto !important;
+  position: relative !important;
+  isolation: isolate;
+}
+#table { border-collapse: separate !important; border-spacing: 0 !important; }
+#table thead th {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+  background: #087653 !important;
+  color: #fff !important;
+}
+@media (max-width: 1000px) {
+  #cards { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 600px) {
+  #cards { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
