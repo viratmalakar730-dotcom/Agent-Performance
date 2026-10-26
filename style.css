@@ -1504,3 +1504,115 @@ body { background: #eef7ef !important; color: #174b3b !important; }
   #cards { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
 }
 
+
+/* Targeted layout refinements: tighter KPI cards, tighter title/timestamp spacing,
+   and a reliably sticky table header within the table's own scroll area. */
+h2 {
+  margin-bottom: 2px !important;
+}
+#reportTime {
+  margin-top: 2px !important;
+  margin-bottom: 8px !important;
+  padding: 7px 14px !important;
+  line-height: 1.15 !important;
+}
+#cards {
+  width: calc(100% - 24px) !important;
+  margin: 10px auto 8px !important;
+  gap: 6px !important;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  justify-content: stretch !important;
+  align-items: stretch !important;
+}
+#cards > * {
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+.table-container {
+  display: block !important;
+  width: calc(100% - 24px) !important;
+  max-height: 62vh !important;
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+  position: relative !important;
+  isolation: isolate !important;
+  overscroll-behavior: contain;
+}
+#table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+#table thead {
+  position: relative !important;
+}
+#table thead th {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 200 !important;
+  background: #087653 !important;
+  color: #fff !important;
+}
+@media (max-width: 1000px) {
+  #cards { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 600px) {
+  #cards { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 6px !important; }
+  h2 { margin-bottom: 0 !important; }
+  #reportTime { margin-top: 0 !important; margin-bottom: 6px !important; }
+}
+
+
+/* Live page layout: compact spacing and search aligned above table on the left. */
+.live-report-toolbar {
+  width: calc(100% - 32px) !important;
+  margin: 0 auto 8px !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+.live-report-toolbar #search {
+  display: block !important;
+  width: min(360px, 100%) !important;
+  max-width: 360px !important;
+  margin: 0 !important;
+  flex: 0 1 360px !important;
+  box-sizing: border-box !important;
+}
+/* Reduce unused vertical space on the live page without changing the theme. */
+body:has(.live-report-toolbar) h2 { margin-top: 12px !important; margin-bottom: 2px !important; }
+body:has(.live-report-toolbar) #reportTime { margin-top: 2px !important; margin-bottom: 6px !important; }
+body:has(.live-report-toolbar) #cards {
+  margin-top: 6px !important;
+  margin-bottom: 8px !important;
+  gap: 6px !important;
+  width: calc(100% - 32px) !important;
+}
+/* Keep the table header opaque and pinned to the top of the table's own scroll area. */
+.table-container {
+  max-height: 62vh !important;
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+  position: relative !important;
+  isolation: isolate !important;
+  overscroll-behavior: contain !important;
+}
+#table { border-collapse: separate !important; border-spacing: 0 !important; }
+#table thead { position: static !important; }
+#table thead th {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 999 !important;
+  background: #087653 !important;
+  background-color: #087653 !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  isolation: isolate !important;
+}
+#table tbody td { position: relative; z-index: 1; }
+@media (max-width: 600px) {
+  .live-report-toolbar { width: calc(100% - 20px) !important; margin-bottom: 6px !important; }
+  .live-report-toolbar #search { width: 100% !important; max-width: 100% !important; flex-basis: 100% !important; }
+}
