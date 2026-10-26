@@ -242,7 +242,7 @@ thead th{
         0 4px 10px rgba(0,0,0,0.35);
 }
 
-/* 🔥 HEADER BOTTOM GLOW LINE */
+/* ðŸ”¥ HEADER BOTTOM GLOW LINE */
 
 thead th::after{
     content:"";
@@ -668,7 +668,7 @@ thead th { border-color: #4C775B !important; }
 
 
 /* =========================================================
-   EMERALD MANDALA LIVE REDESIGN — visual layer only
+   EMERALD MANDALA LIVE REDESIGN â€” visual layer only
    Keeps existing IDs, data logic, Firebase and thresholds.
    ========================================================= */
 :root {
@@ -742,7 +742,7 @@ h2 {
   text-shadow: 0 2px 0 rgba(255,255,255,.85), 0 8px 28px rgba(5,150,105,.12) !important;
 }
 h2::after {
-  content: "CALL  •  CONNECT  •  SERVE  •  PERFORM";
+  content: "CALL  â€¢  CONNECT  â€¢  SERVE  â€¢  PERFORM";
   display: block;
   margin-top: 8px;
   font-size: 10px;
@@ -767,7 +767,7 @@ h2::after {
   text-shadow: none !important;
   box-shadow: 0 5px 18px rgba(6,95,70,.06), inset 0 1px 0 rgba(255,255,255,.9);
 }
-#reportTime::before { content: "◷"; font-size: 17px; color: var(--em-700); }
+#reportTime::before { content: "â—·"; font-size: 17px; color: var(--em-700); }
 
 /* Search and actions: modern aligned toolbar treatment */
 #search {
