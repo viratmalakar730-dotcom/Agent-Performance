@@ -1505,114 +1505,111 @@ body { background: #eef7ef !important; color: #174b3b !important; }
 }
 
 
-/* Targeted layout refinements: tighter KPI cards, tighter title/timestamp spacing,
-   and a reliably sticky table header within the table's own scroll area. */
+/* PREVIEW DESIGN IMPLEMENTATION: keep existing sage/emerald theme, compact horizontal KPI cards */
 h2 {
-  margin-bottom: 2px !important;
-}
-#reportTime {
-  margin-top: 2px !important;
-  margin-bottom: 8px !important;
-  padding: 7px 14px !important;
+  margin: 14px auto 4px !important;
+  text-align: center !important;
+  font-size: clamp(25px, 2.5vw, 42px) !important;
   line-height: 1.15 !important;
 }
+#reportTime {
+  margin: 4px auto 12px !important;
+  padding: 8px 16px !important;
+  width: fit-content !important;
+  max-width: calc(100% - 24px) !important;
+}
 #cards {
-  width: calc(100% - 24px) !important;
-  margin: 10px auto 8px !important;
-  gap: 6px !important;
   grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
-  justify-content: stretch !important;
+  gap: 7px !important;
+  margin: 12px 2% 10px !important;
+  width: 96% !important;
   align-items: stretch !important;
 }
-#cards > * {
-  min-width: 0 !important;
+#cards > .card {
+  display: grid !important;
+  grid-template-columns: 46px minmax(0, 1fr) !important;
+  grid-template-rows: auto auto !important;
+  align-content: center !important;
+  align-items: center !important;
+  column-gap: 10px !important;
+  row-gap: 3px !important;
+  min-height: 88px !important;
+  padding: 12px 12px !important;
+  text-align: left !important;
+  border-radius: 13px !important;
+  box-sizing: border-box !important;
+}
+#cards .card-icon {
+  grid-column: 1 !important;
+  grid-row: 1 / span 2 !important;
+  width: 42px !important;
+  height: 42px !important;
+  margin: 0 !important;
+  align-self: center !important;
+  justify-self: center !important;
+  font-size: 22px !important;
+}
+#cards .card-label {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  text-align: left !important;
+  font-size: clamp(11px, .9vw, 15px) !important;
+  line-height: 1.2 !important;
   margin: 0 !important;
 }
+#cards .card-value {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  text-align: left !important;
+  font-size: clamp(19px, 1.6vw, 28px) !important;
+  line-height: 1.05 !important;
+  margin: 0 !important;
+}
+.report-toolbar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  width: 96% !important;
+  margin: 0 auto 8px !important;
+  flex-wrap: nowrap !important;
+}
+#search {
+  flex: 0 1 390px !important;
+  width: min(390px, 35vw) !important;
+  min-width: 190px !important;
+  margin: 0 !important;
+}
+.report-toolbar button { margin: 0 !important; flex: 0 0 auto !important; }
+#bhopalClock { margin-left: auto !important; white-space: nowrap !important; }
 .table-container {
-  display: block !important;
-  width: calc(100% - 24px) !important;
+  width: 96% !important;
+  max-width: 96% !important;
+  margin: 0 auto 16px !important;
   max-height: 62vh !important;
-  overflow-x: auto !important;
-  overflow-y: auto !important;
-  position: relative !important;
-  isolation: isolate !important;
-  overscroll-behavior: contain;
-}
-#table {
-  border-collapse: separate !important;
-  border-spacing: 0 !important;
-}
-#table thead {
+  overflow: auto !important;
   position: relative !important;
 }
+#table { width: 100% !important; }
 #table thead th {
   position: sticky !important;
   top: 0 !important;
-  z-index: 200 !important;
+  z-index: 100 !important;
   background: #087653 !important;
   color: #fff !important;
+  box-shadow: 0 1px 0 #65b99a !important;
 }
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
   #cards { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  #cards > .card { grid-template-columns: 34px minmax(0,1fr) !important; padding: 10px 8px !important; column-gap: 7px !important; }
+  #cards .card-icon { width: 32px !important; height: 32px !important; font-size: 18px !important; }
+  .report-toolbar { flex-wrap: wrap !important; }
+  #bhopalClock { margin-left: 0 !important; }
 }
-@media (max-width: 600px) {
-  #cards { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 6px !important; }
-  h2 { margin-bottom: 0 !important; }
-  #reportTime { margin-top: 0 !important; margin-bottom: 6px !important; }
-}
-
-
-/* Live page layout: compact spacing and search aligned above table on the left. */
-.live-report-toolbar {
-  width: calc(100% - 32px) !important;
-  margin: 0 auto 8px !important;
-  display: flex !important;
-  justify-content: flex-start !important;
-  align-items: center !important;
-  min-height: 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
-}
-.live-report-toolbar #search {
-  display: block !important;
-  width: min(360px, 100%) !important;
-  max-width: 360px !important;
-  margin: 0 !important;
-  flex: 0 1 360px !important;
-  box-sizing: border-box !important;
-}
-/* Reduce unused vertical space on the live page without changing the theme. */
-body:has(.live-report-toolbar) h2 { margin-top: 12px !important; margin-bottom: 2px !important; }
-body:has(.live-report-toolbar) #reportTime { margin-top: 2px !important; margin-bottom: 6px !important; }
-body:has(.live-report-toolbar) #cards {
-  margin-top: 6px !important;
-  margin-bottom: 8px !important;
-  gap: 6px !important;
-  width: calc(100% - 32px) !important;
-}
-/* Keep the table header opaque and pinned to the top of the table's own scroll area. */
-.table-container {
-  max-height: 62vh !important;
-  overflow-x: auto !important;
-  overflow-y: auto !important;
-  position: relative !important;
-  isolation: isolate !important;
-  overscroll-behavior: contain !important;
-}
-#table { border-collapse: separate !important; border-spacing: 0 !important; }
-#table thead { position: static !important; }
-#table thead th {
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 999 !important;
-  background: #087653 !important;
-  background-color: #087653 !important;
-  color: #ffffff !important;
-  opacity: 1 !important;
-  isolation: isolate !important;
-}
-#table tbody td { position: relative; z-index: 1; }
-@media (max-width: 600px) {
-  .live-report-toolbar { width: calc(100% - 20px) !important; margin-bottom: 6px !important; }
-  .live-report-toolbar #search { width: 100% !important; max-width: 100% !important; flex-basis: 100% !important; }
+@media (max-width: 560px) {
+  #cards { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+  #cards > .card { min-height: 78px !important; }
+  #search { flex: 1 1 100% !important; width: 100% !important; }
+  #bhopalClock { white-space: normal !important; }
+  .table-container { overflow: auto !important; }
+  #table { min-width: 850px !important; }
 }
