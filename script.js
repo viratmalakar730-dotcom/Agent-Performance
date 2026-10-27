@@ -724,6 +724,22 @@ function loadDashboard(data){
         <td>${r.ob}</td>
         `;
 
+        // Force the complete alert cell (not only its text) to use the locked
+        // light-pink / extra-bold dark-katthai style. This also survives row-hover CSS.
+        tr.querySelectorAll("td.red3d").forEach(td => {
+            td.style.setProperty("background", "#FADADD", "important");
+            td.style.setProperty("background-color", "#FADADD", "important");
+            td.style.setProperty("background-image", "none", "important");
+            td.style.setProperty("color", "#5D4037", "important");
+            td.style.setProperty("font-weight", "900", "important");
+            td.style.setProperty("border-color", "#E6A4AE", "important");
+            td.style.setProperty("box-shadow", "inset 0 0 0 1px rgba(93,64,55,0.08)", "important");
+            td.style.setProperty("text-shadow", "none", "important");
+            td.style.setProperty("transform", "none", "important");
+            td.style.setProperty("filter", "none", "important");
+            td.style.setProperty("border-radius", "0", "important");
+        });
+
         tbody.appendChild(tr);
     });
 
@@ -799,4 +815,3 @@ window.processFiles = processFiles;
 window.resetDashboard = resetDashboard;
 window.searchTable = searchTable;
 window.exportExcel = exportExcel;
-
