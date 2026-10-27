@@ -1843,3 +1843,31 @@ h2 {
   #bhopalClock { width: 100% !important; margin-left: 0 !important; white-space: normal !important; box-sizing: border-box !important; }
   .table-container { width: calc(100% - 18px) !important; max-height: 62vh !important; }
 }
+
+/* LOCKED ALERT STYLE: uniform light-pink cells with extra-bold katthai text; integrated, not floating */
+#table tbody td.red3d,
+#table tbody td.red,
+#table tbody td.warning,
+#table tbody td.alert,
+#table tbody td[style*="background-color: rgb(255, 0, 0)"],
+#table tbody td[style*="background-color: red"] {
+  background: #FADADD !important;
+  background-color: #FADADD !important;
+  color: #5D4037 !important;
+  border-color: #E6A4AE !important;
+  font-weight: 900 !important;
+  text-shadow: none !important;
+  box-shadow: inset 0 0 0 1px rgba(93, 64, 55, 0.08) !important;
+  transform: none !important;
+  filter: none !important;
+  border-radius: 0 !important;
+  position: static !important;
+}
+#table tbody td.red3d *,
+#table tbody td.red *,
+#table tbody td.warning *,
+#table tbody td.alert * {
+  color: #5D4037 !important;
+  font-weight: 900 !important;
+  text-shadow: none !important;
+}
