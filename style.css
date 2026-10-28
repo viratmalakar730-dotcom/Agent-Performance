@@ -2116,3 +2116,30 @@ h2 {
   }
 }
 
+
+
+/* CONDITIONAL FORMATTING FIX — keep call/mature performance colours visible over zebra rows */
+#table tbody tr td.green3d,
+#table tbody tr:hover td.green3d {
+  background: #c8f5d9 !important;
+  background-color: #c8f5d9 !important;
+  color: #075b38 !important;
+  border-color: #9bdab2 !important;
+  font-weight: 800 !important;
+}
+#table tbody tr td.yellow3d,
+#table tbody tr:hover td.yellow3d {
+  background: #fff0b8 !important;
+  background-color: #fff0b8 !important;
+  color: #895300 !important;
+  border-color: #ead58c !important;
+  font-weight: 800 !important;
+}
+#table tbody tr td.red3d,
+#table tbody tr:hover td.red3d {
+  background: #fadadd !important;
+  background-color: #fadadd !important;
+  color: #5d4037 !important;
+  border-color: #e6a4ae !important;
+  font-weight: 900 !important;
+}
