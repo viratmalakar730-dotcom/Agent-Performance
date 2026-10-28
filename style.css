@@ -2047,3 +2047,72 @@ button:hover { background: linear-gradient(145deg, #ff3347, #b41426) !important;
 .table-container::-webkit-scrollbar-thumb { background: #b71c2b !important; border-radius: 8px; }
 .table-container::-webkit-scrollbar-track { background: #dedfe2 !important; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* THEME NO. 5 — FINAL REFERENCE MATCH POLISH */
+body {
+  background:
+    repeating-linear-gradient(135deg,
+      transparent 0 95px,
+      rgba(255, 35, 55, .12) 96px 103px,
+      transparent 104px 165px),
+    linear-gradient(145deg, #070708 0%, #151619 48%, #080809 100%) !important;
+}
+/* Racing-stripe header treatment, kept behind all content */
+body::before {
+  background:
+    repeating-linear-gradient(135deg,
+      transparent 0 92px,
+      rgba(255, 35, 55, .19) 93px 101px,
+      transparent 102px 158px),
+    linear-gradient(180deg, rgba(0,0,0,.08), transparent 72%) !important;
+  opacity: .82 !important;
+}
+body::after {
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.03) 0%, rgba(0,0,0,.2) 58%, rgba(0,0,0,.48) 100%) !important;
+  opacity: 1 !important;
+}
+h2 {
+  color: #fff !important;
+  text-shadow: 0 0 8px rgba(255,255,255,.14), 0 0 22px rgba(255,35,55,.35) !important;
+}
+#cards > .card {
+  min-width: 0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 5px 16px rgba(0,0,0,.38), 0 0 10px rgba(255,35,55,.12) !important;
+}
+#cards .card-value {
+  white-space: nowrap !important;
+  overflow: visible !important;
+}
+#table thead th {
+  background: linear-gradient(180deg, #e21e32 0%, #a30f20 100%) !important;
+  border-bottom: 2px solid #ff5263 !important;
+}
+#table tbody tr:nth-child(odd) td {
+  background: #fff !important;
+  color: #202125 !important;
+}
+#table tbody tr:nth-child(even) td {
+  background: #e9eaed !important;
+  color: #202125 !important;
+}
+#table tbody tr:hover td {
+  background: #dfe0e4 !important;
+  color: #111215 !important;
+}
+#table tbody td.red3d,
+#table tbody td.red,
+#table tbody td.warning,
+#table tbody td.alert,
+#table tbody td[style*="background-color: rgb(255, 0, 0)"],
+#table tbody td[style*="background-color: red"] {
+  background: #fadadd !important;
+  color: #5d4037 !important;
+}
+@media (max-width: 1100px) {
+  body::before {
+    background-size: auto !important;
+  }
+}
+
