@@ -2143,3 +2143,34 @@ h2 {
   border-color: #e6a4ae !important;
   font-weight: 900 !important;
 }
+
+
+/* THEME 5 FINAL BACKGROUND FIX: use the exact supplied racing-stripe artwork */
+html {
+  min-height: 100% !important;
+  background: #050505 !important;
+}
+body {
+  min-height: 100vh !important;
+  background-color: #050505 !important;
+  background-image: url("theme5-background.png") !important;
+  background-position: center top !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+/* Prevent older decorative CSS from drawing a different background over the artwork. */
+body::before,
+body::after,
+.table-container::before,
+.table-container::after {
+  content: none !important;
+  display: none !important;
+  background-image: none !important;
+  animation: none !important;
+}
+/* Keep dashboard controls and data readable above the background artwork. */
+body > * {
+  position: relative;
+  z-index: 1;
+}
