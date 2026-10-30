@@ -2174,3 +2174,74 @@ body > * {
   position: relative;
   z-index: 1;
 }
+/* =========================================================
+   AQUA MARINE ACCENT — subtle overlay for Theme No. 5
+   Red racing identity remains primary; aqua is a restrained highlight.
+   ========================================================= */
+:root {
+  --aqua-soft: #65e7e0;
+  --aqua-glow: rgba(74, 222, 214, .16);
+  --aqua-line: rgba(74, 222, 214, .38);
+}
+
+/* Soft aqua light pools over the existing exact racing-stripe artwork. */
+body {
+  background-image:
+    radial-gradient(ellipse at 12% 18%, rgba(28, 190, 190, .11) 0%, transparent 31%),
+    radial-gradient(ellipse at 88% 22%, rgba(40, 210, 205, .09) 0%, transparent 29%),
+    radial-gradient(ellipse at 50% 100%, rgba(30, 170, 175, .07) 0%, transparent 38%),
+    url("theme5-background.png") !important;
+  background-position: center top, center top, center bottom, center top !important;
+  background-size: cover, cover, cover, cover !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+
+/* Aqua edge-light on cards, without changing their charcoal/red styling. */
+#cards > .card {
+  border-color: rgba(255, 51, 71, .78) !important;
+  box-shadow:
+    0 5px 16px rgba(0, 0, 0, .38),
+    0 0 10px rgba(255, 35, 55, .10),
+    0 0 14px rgba(74, 222, 214, .09),
+    inset 0 1px 0 rgba(110, 231, 224, .08) !important;
+}
+#cards > .card:hover {
+  border-color: rgba(101, 231, 224, .58) !important;
+  box-shadow:
+    0 7px 20px rgba(0, 0, 0, .42),
+    0 0 13px rgba(255, 35, 55, .15),
+    0 0 20px rgba(74, 222, 214, .16) !important;
+}
+#cards .card-icon {
+  box-shadow: 0 0 10px rgba(74, 222, 214, .10), inset 0 0 0 1px rgba(101, 231, 224, .12) !important;
+}
+
+/* Timestamp, search focus and clock receive only a fine aqua highlight. */
+#reportTime,
+#bhopalClock {
+  box-shadow:
+    0 0 10px rgba(225, 29, 46, .10),
+    0 0 12px rgba(74, 222, 214, .08),
+    inset 0 1px 0 rgba(101, 231, 224, .07) !important;
+}
+#search:focus {
+  border-color: rgba(101, 231, 224, .72) !important;
+  box-shadow:
+    0 0 0 2px rgba(74, 222, 214, .12),
+    0 0 12px rgba(74, 222, 214, .12) !important;
+}
+
+/* A restrained cool highlight around the table frame; table cells stay neutral. */
+.table-container {
+  box-shadow:
+    0 0 0 1px rgba(225, 29, 46, .10),
+    0 8px 22px rgba(0, 0, 0, .28),
+    0 0 13px rgba(74, 222, 214, .08) !important;
+}
+#table thead th {
+  box-shadow: inset 0 -1px 0 rgba(101, 231, 224, .22) !important;
+}
+.table-container::-webkit-scrollbar-thumb {
+  box-shadow: 0 0 7px rgba(74, 222, 214, .22) !important;
+}
