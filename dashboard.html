@@ -32,6 +32,7 @@
   <input type="text" id="search" placeholder="🔍 Search Agent Full Name..." onkeyup="searchTable()">
   <button onclick="exportExcel()">📤 Excel</button>
   <button onclick="resetDashboard()">🔄 Reset</button>
+  <button type="button" id="adminMessageOpen" class="admin-message-icon" aria-label="Send admin message" title="Send Admin Message">▣</button>
   <div id="bhopalClock" aria-live="off" title="Live Bhopal, Madhya Pradesh time"></div>
 </div>
 
@@ -83,6 +84,7 @@ if ("Notification" in window && Notification.permission !== "granted") {
 
 <!-- MAIN SCRIPT -->
 <script src="./script.js"></script>
+<script src="./message-system.js"></script>
 <script>
 (function () {
   const clock = document.getElementById("bhopalClock");
