@@ -43,8 +43,16 @@
         color:#48e4e4!important;background:#10171b!important;border:1px solid #27d8dc!important;
         border-radius:13px!important;box-shadow:0 0 12px rgba(0,220,230,.25),inset 0 0 8px rgba(0,220,230,.08)!important}
       .admin-message-icon:hover{box-shadow:0 0 18px rgba(0,220,230,.55)!important;transform:translateY(-1px)}
-      .am-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;
-        padding:18px;background:rgba(0,0,0,.72);backdrop-filter:blur(5px)}
+      /* The site's background-video CSS sets body children to position:relative.
+         This higher-specificity rule keeps every message window viewport-fixed. */
+      body > .am-overlay{position:fixed!important;inset:0!important;z-index:2147483000!important;
+        display:flex!important;align-items:center!important;justify-content:center!important;
+        width:100vw!important;height:100vh!important;box-sizing:border-box!important;
+        padding:18px!important;margin:0!important;background:rgba(0,0,0,.68)!important;
+        -webkit-backdrop-filter:blur(8px)!important;backdrop-filter:blur(8px)!important;
+        overflow:auto!important}
+      body.am-modal-open{overflow:hidden!important}
+      body > .am-toast{position:fixed!important;top:18px!important;right:20px!important;z-index:2147483001!important}
       .am-panel{width:min(520px,96vw);max-height:90vh;overflow:auto;background:linear-gradient(145deg,#17191d,#090b0e);
         color:#f5f7fa;border:2px solid #ef233c;border-radius:18px;padding:22px;
         box-shadow:0 0 12px rgba(255,25,55,.65),0 0 36px rgba(255,25,55,.28),inset 0 0 18px rgba(255,25,55,.06)}
@@ -71,7 +79,7 @@
         border-radius:12px;padding:18px;color:#fff;font-size:clamp(18px,2.2vw,24px);line-height:1.55;font-weight:700}
       .am-ok-wrap{display:flex;justify-content:center;margin-top:18px}
       .am-ok{min-width:170px!important;font-size:17px!important}
-      .am-toast{position:fixed;top:18px;right:20px;z-index:100001;width:min(390px,calc(100vw - 32px));
+      .am-toast{position:fixed;top:18px;right:20px;z-index:2147483001;width:min(390px,calc(100vw - 32px));
         display:flex;gap:12px;align-items:flex-start;padding:15px 16px;border-radius:13px;
         color:#f7fbff;background:linear-gradient(145deg,#20252b,#101419);border:1px solid #28d8dc;
         box-shadow:0 8px 30px rgba(0,0,0,.45),0 0 18px rgba(0,220,230,.25);
@@ -83,7 +91,7 @@
       .am-toast-meta{font-size:11px;color:#b7c2cc;margin-top:6px}
       .am-toast-close{border:0;background:transparent;color:#dce4e9;font-size:19px;cursor:pointer;padding:0 2px}
       @keyframes amToastIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
-      @media(max-width:600px){.am-toast{top:10px;right:10px;width:calc(100vw - 52px)}.am-panel{padding:16px}.am-live-panel{padding:0}.am-live-body{padding:16px}.am-live-head .am-title{font-size:19px}}
+      @media(max-width:600px){body > .am-toast{top:10px!important;right:10px!important;width:calc(100vw - 52px)}.am-panel{padding:16px}.am-live-panel{padding:0}.am-live-body{padding:16px}.am-live-head .am-title{font-size:19px}}
     `;
     document.head.appendChild(style);
   }
@@ -99,6 +107,18 @@
     return { overlay, panel };
   }
 
+  function appendOverlay(overlay) {
+    document.body.classList.add("am-modal-open");
+    document.body.appendChild(overlay);
+  }
+
+  function closeOverlay(overlay) {
+    if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    if (!document.querySelector("body > .am-overlay")) {
+      document.body.classList.remove("am-modal-open");
+    }
+  }
+
   function openAdminComposer() {
     const { overlay, panel } = makeOverlay("");
     const head = document.createElement("div");
@@ -110,7 +130,7 @@
     close.type = "button"; close.className = "am-btn am-cancel";
     close.textContent = "✕";
     close.style.minWidth = "42px";
-    close.addEventListener("click", () => overlay.remove());
+    close.addEventListener("click", () => closeOverlay(overlay));
     head.append(title, close);
 
     const senderLabel = document.createElement("label");
@@ -135,7 +155,7 @@
     actions.className = "am-actions";
     const cancel = document.createElement("button");
     cancel.type = "button"; cancel.className = "am-btn am-cancel"; cancel.textContent = "Cancel";
-    cancel.addEventListener("click", () => overlay.remove());
+    cancel.addEventListener("click", () => closeOverlay(overlay));
     const send = document.createElement("button");
     send.type = "button"; send.className = "am-btn am-send"; send.textContent = "➤ Send Message";
     send.addEventListener("click", () => {
@@ -150,7 +170,7 @@
         createdAt: Date.now()
       };
       database.ref(DB_PATH).push(payload)
-        .then(() => overlay.remove())
+        .then(() => closeOverlay(overlay))
         .catch((error) => {
           console.error("Admin message send failed:", error);
           alert("Message send nahi hua. Firebase Database Rules / connection check karein.");
@@ -159,7 +179,7 @@
     });
     actions.append(cancel, send);
     panel.append(head, senderLabel, sender, messageLabel, message, actions);
-    document.body.appendChild(overlay);
+    appendOverlay(overlay);
     message.focus();
   }
 
@@ -219,11 +239,11 @@
     okWrap.className = "am-ok-wrap";
     const ok = document.createElement("button");
     ok.type = "button"; ok.className = "am-btn am-ok"; ok.textContent = "✓ OK";
-    ok.addEventListener("click", () => overlay.remove());
+    ok.addEventListener("click", () => closeOverlay(overlay));
     okWrap.appendChild(ok);
     body.append(date, sender, message, okWrap);
     panel.append(head, body);
-    document.body.appendChild(overlay);
+    appendOverlay(overlay);
 
     if (document.hidden && "Notification" in window && Notification.permission === "granted") {
       try {
