@@ -2381,3 +2381,27 @@ body > :not(#dashboardVideoBackground) {
 @media (prefers-reduced-motion: reduce) {
   #dashboardVideoBackground { opacity: .22 !important; }
 }
+
+
+/* ================= ADMIN MESSAGE ICON ================= */
+.report-toolbar .admin-message-icon {
+  width: 48px !important;
+  min-width: 48px !important;
+  height: 43px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #45e4e4 !important;
+  background: #10171b !important;
+  border: 1px solid #20d6dc !important;
+  border-radius: 12px !important;
+  font-size: 23px !important;
+  box-shadow: 0 0 12px rgba(0,220,230,.28), inset 0 0 8px rgba(0,220,230,.08) !important;
+}
+.report-toolbar .admin-message-icon:hover {
+  color: #ffffff !important;
+  box-shadow: 0 0 18px rgba(0,220,230,.58) !important;
+  transform: translateY(-1px) !important;
+}
