@@ -71,7 +71,19 @@
         border-radius:12px;padding:18px;color:#fff;font-size:clamp(18px,2.2vw,24px);line-height:1.55;font-weight:700}
       .am-ok-wrap{display:flex;justify-content:center;margin-top:18px}
       .am-ok{min-width:170px!important;font-size:17px!important}
-      @media(max-width:600px){.am-panel{padding:16px}.am-live-panel{padding:0}.am-live-body{padding:16px}.am-live-head .am-title{font-size:19px}}
+      .am-toast{position:fixed;top:18px;right:20px;z-index:100001;width:min(390px,calc(100vw - 32px));
+        display:flex;gap:12px;align-items:flex-start;padding:15px 16px;border-radius:13px;
+        color:#f7fbff;background:linear-gradient(145deg,#20252b,#101419);border:1px solid #28d8dc;
+        box-shadow:0 8px 30px rgba(0,0,0,.45),0 0 18px rgba(0,220,230,.25);
+        animation:amToastIn .28s ease-out;font-family:Arial,sans-serif}
+      .am-toast-icon{font-size:25px;line-height:1.1;color:#42e1e5}
+      .am-toast-content{min-width:0;flex:1}
+      .am-toast-title{font-size:14px;font-weight:900;color:#4be4e8;margin-bottom:5px}
+      .am-toast-text{font-size:13px;line-height:1.4;overflow-wrap:anywhere;color:#fff}
+      .am-toast-meta{font-size:11px;color:#b7c2cc;margin-top:6px}
+      .am-toast-close{border:0;background:transparent;color:#dce4e9;font-size:19px;cursor:pointer;padding:0 2px}
+      @keyframes amToastIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+      @media(max-width:600px){.am-toast{top:10px;right:10px;width:calc(100vw - 52px)}.am-panel{padding:16px}.am-live-panel{padding:0}.am-live-body{padding:16px}.am-live-head .am-title{font-size:19px}}
     `;
     document.head.appendChild(style);
   }
@@ -151,7 +163,38 @@
     message.focus();
   }
 
+  function showMessageToast(data) {
+    const oldToast = $("amMessageToast");
+    if (oldToast) oldToast.remove();
+    const toast = document.createElement("div");
+    toast.id = "amMessageToast";
+    toast.className = "am-toast";
+    toast.setAttribute("role", "status");
+    const icon = document.createElement("div");
+    icon.className = "am-toast-icon"; icon.textContent = "🔔";
+    const content = document.createElement("div");
+    content.className = "am-toast-content";
+    const title = document.createElement("div");
+    title.className = "am-toast-title"; title.textContent = "New Admin Message";
+    const text = document.createElement("div");
+    text.className = "am-toast-text";
+    const raw = String(data.message || "");
+    text.textContent = raw.length > 130 ? raw.slice(0, 127) + "…" : raw;
+    const meta = document.createElement("div");
+    meta.className = "am-toast-meta";
+    meta.textContent = "From: " + (data.sender || "Admin") + "  •  " + istDateTime(data.createdAt);
+    content.append(title, text, meta);
+    const close = document.createElement("button");
+    close.type = "button"; close.className = "am-toast-close";
+    close.setAttribute("aria-label", "Dismiss notification"); close.textContent = "×";
+    close.addEventListener("click", () => toast.remove());
+    toast.append(icon, content, close);
+    document.body.appendChild(toast);
+    window.setTimeout(() => toast.remove(), 7000);
+  }
+
   function showLiveMessage(data) {
+    showMessageToast(data);
     const { overlay, panel } = makeOverlay("am-live-panel");
     const head = document.createElement("div");
     head.className = "am-live-head";
