@@ -258,8 +258,10 @@
       adminButton.addEventListener("click", openAdminComposer);
     }
 
-    // A message icon is intentionally not added to live.html.
-    if ($("table") && !$("adminMessageOpen")) {
+    // Every open Dashboard and Live Page receives the broadcast.
+    // The sender's Dashboard also receives the message, so its popup
+    // appears above the report table just like it does on Live Page.
+    if ($("table")) {
       let attempts = 0;
       const wait = setInterval(() => {
         attempts++;
