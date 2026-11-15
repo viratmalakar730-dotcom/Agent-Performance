@@ -144,16 +144,16 @@
     head.className = "am-head";
     const title = document.createElement("div");
     title.className = "am-title";
-    title.textContent = "Γ£ë Send Admin Message";
+    title.textContent = "Send Admin Message";
     const close = document.createElement("button");
     close.type = "button"; close.className = "am-btn am-cancel";
-    close.textContent = "Γ£ò";
+    close.textContent = "×";
     close.style.minWidth = "42px";
     close.addEventListener("click", () => closeOverlay(overlay));
     head.append(title, close);
 
     const senderLabel = document.createElement("label");
-    senderLabel.className = "am-label"; senderLabel.textContent = "≡ƒæñ Sent By (Name)";
+    senderLabel.className = "am-label"; senderLabel.textContent = "Sent By (Name)";
     const sender = document.createElement("select");
     sender.className = "am-input"; sender.id = "amSender";
     ADMIN_NAMES.forEach((name) => {
@@ -164,10 +164,10 @@
     sender.value = "Chandan Malakar";
 
     const messageLabel = document.createElement("label");
-    messageLabel.className = "am-label"; messageLabel.textContent = "≡ƒÆ¼ Message";
+    messageLabel.className = "am-label"; messageLabel.textContent = "Message";
     const message = document.createElement("textarea");
     message.className = "am-input"; message.rows = 5; message.maxLength = 1500;
-    message.placeholder = "Yahan apna message likhein...";
+    message.placeholder = "Enter your message here...";
     message.id = "amMessage";
 
     const actions = document.createElement("div");
@@ -176,7 +176,7 @@
     cancel.type = "button"; cancel.className = "am-btn am-cancel"; cancel.textContent = "Cancel";
     cancel.addEventListener("click", () => closeOverlay(overlay));
     const send = document.createElement("button");
-    send.type = "button"; send.className = "am-btn am-send"; send.textContent = "Γ₧ñ Send Message";
+    send.type = "button"; send.className = "am-btn am-send"; send.textContent = "Send Message";
     send.addEventListener("click", () => {
       const text = message.value.trim();
       if (!text) { alert("Please enter a message."); message.focus(); return; }
@@ -193,7 +193,7 @@
         .catch((error) => {
           console.error("Admin message send failed:", error);
           alert("Message send nahi hua. Firebase Database Rules / connection check karein.");
-          send.disabled = false; send.textContent = "Γ₧ñ Send Message";
+          send.disabled = false; send.textContent = "Send Message";
         });
     });
     actions.append(cancel, send);
