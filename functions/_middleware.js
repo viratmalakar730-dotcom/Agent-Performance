@@ -1,5 +1,7 @@
 const COOKIE_NAME = "__Host-ap_access";
+const ONCE_COOKIE_NAME = "__Host-ap_once";
 const MAX_AGE_SECONDS = 86400;
+const ONCE_MAX_AGE_SECONDS = 60;
 
 function json(data, status = 200, headers = {}) {
   return new Response(JSON.stringify(data), {
@@ -34,10 +36,38 @@ async function validToken(secret, token) {
   return (await sign(secret, issuedText)) === signature;
 }
 
-function cookieValue(request) {
+function readCookie(request, name) {
   const raw = request.headers.get("Cookie") || "";
-  const item = raw.split(";").map(v => v.trim()).find(v => v.startsWith(COOKIE_NAME + "="));
-  return item ? decodeURIComponent(item.slice(COOKIE_NAME.length + 1)) : "";
+  const item = raw.split(";").map(v => v.trim()).find(v => v.startsWith(name + "="));
+  if (!item) return "";
+  try { return decodeURIComponent(item.slice(name.length + 1)); } catch { return ""; }
+}
+
+function cookieValue(request) {
+  return readCookie(request, COOKIE_NAME);
+}
+
+async function makeOneTimeToken(secret) {
+  const payload = "once:" + Math.floor(Date.now() / 1000) + ":" +
+    crypto.randomUUID().replace(/-/g, "");
+  return payload + "." + await sign(secret, payload);
+}
+
+async function validOneTimeToken(secret, token) {
+  if (!token || !token.includes(".")) return false;
+  const splitAt = token.lastIndexOf(".");
+  const payload = token.slice(0, splitAt);
+  const signature = token.slice(splitAt + 1);
+  const match = /^once:(\\d+):[a-f0-9]+$/.exec(payload);
+  if (!match || !signature) return false;
+  const issued = Number(match[1]);
+  const now = Math.floor(Date.now() / 1000);
+  if (issued > now + 5 || now - issued > ONCE_MAX_AGE_SECONDS) return false;
+  return (await sign(secret, payload)) === signature;
+}
+
+function oneTimeCookie(token) {
+  return `${ONCE_COOKIE_NAME}=${encodeURIComponent(token)}; Path=/; Max-Age=${ONCE_MAX_AGE_SECONDS}; Secure; HttpOnly; SameSite=Strict`;
 }
 
 function loginPage(target, error = "") {
@@ -100,6 +130,38 @@ export async function onRequest(context) {
     return json({ ok: String(body.password || "") === String(env.SITE_PASSWORD) }, 200);
   }
 
+  // Issue one short-lived, single-navigation pass only to an already
+  // authenticated uploader after Firebase confirms the data write.
+  if (url.pathname === "/__auth/upload-access" && request.method === "POST") {
+    if (!env.SITE_PASSWORD) return json({ ok: false }, 503);
+    if (!(await validToken(env.SITE_PASSWORD, cookieValue(request)))) {
+      return json({ ok: false, error: "Upload session expired" }, 401);
+    }
+    const once = await makeOneTimeToken(env.SITE_PASSWORD);
+    return json({ ok: true }, 200, { "set-cookie": oneTimeCookie(once) });
+  }
+
+  // A successful password check for Reset gets exactly one pass to return
+  // to the Upload page, avoiding a second password prompt after Reset.
+  if (url.pathname === "/__auth/reset-verify" && request.method === "POST") {
+    if (!env.SITE_PASSWORD) return json({ ok: false }, 503);
+    let body;
+    try { body = await request.json(); } catch { return json({ ok: false }, 400); }
+    if (String(body.password || "") !== String(env.SITE_PASSWORD)) {
+      return json({ ok: false }, 401);
+    }
+    const once = await makeOneTimeToken(env.SITE_PASSWORD);
+    return json({ ok: true }, 200, { "set-cookie": oneTimeCookie(once) });
+  }
+
+  if (url.pathname === "/__config/firebase" && request.method === "GET") {
+    if (!env.FIREBASE_API_KEY) return json({ ok: false, error: "FIREBASE_API_KEY is not configured" }, 503);
+    return json({
+      apiKey: env.FIREBASE_API_KEY,
+      projectId: "agent-performance-live"
+    });
+  }
+
   if (url.pathname.startsWith("/__auth/")) return json({ ok: false }, 404);
 
   if (!env.SITE_PASSWORD) {
@@ -119,6 +181,15 @@ export async function onRequest(context) {
   }
 
   if (isDocumentNavigation) {
+    const once = readCookie(request, ONCE_COOKIE_NAME);
+    if (await validOneTimeToken(env.SITE_PASSWORD, once)) {
+      const response = await next();
+      const headers = new Headers(response.headers);
+      headers.set("cache-control", "no-store");
+      headers.append("set-cookie", `${ONCE_COOKIE_NAME}=; Path=/; Max-Age=0; Secure; HttpOnly; SameSite=Strict`);
+      return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+    }
+
     const access = url.searchParams.get("__access");
     if (!(await validToken(env.SITE_PASSWORD, access))) {
       const target = url.pathname + (url.search ? url.search.replace(/([?&])__access=[^&]*/g, "$1").replace(/[?&]$/, "") : "");

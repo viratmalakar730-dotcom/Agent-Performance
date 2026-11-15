@@ -472,10 +472,27 @@ function processFiles(){
                 reportTime:
                     window.reportDate ||
                     new Date().toLocaleString()
+            }).then(async () => {
+                // Give this authenticated uploader exactly one Dashboard
+                // navigation. Refreshing or revisiting will require password.
+                const accessResponse = await fetch("/__auth/upload-access", {
+                    method: "POST",
+                    cache: "no-store"
+                });
+                const accessResult = await accessResponse.json();
+                if (!accessResponse.ok || !accessResult.ok) {
+                    throw new Error(accessResult.error || "One-time Dashboard access failed");
+                }
+                window.location.replace("dashboard.html");
+            }).catch(error => {
+                console.error("Dashboard upload/access failed:", error);
+                alert("Data upload ya Dashboard access mein error aaya. Firebase connection check karein.");
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerText = "🚀 Generate Dashboard";
+                }
+                if (loading) loading.style.display = "none";
             });
-
-            window.location.href =
-                "dashboard.html";
         });
     });
 }
@@ -488,9 +505,10 @@ async function resetDashboard(){
     if (pass === null) return;
 
     try {
-        const response = await fetch("/__auth/verify", {
+        const response = await fetch("/__auth/reset-verify", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            cache: "no-store",
             body: JSON.stringify({ password: pass })
         });
         const result = await response.json();
