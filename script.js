@@ -499,10 +499,104 @@ function processFiles(){
 
 // ================= RESET =================
 
-async function resetDashboard(){
+// Secure password dialog: masks typed characters instead of using the browser's
+// plain-text prompt. Resolves once on Enter/Verify or Cancel.
+function askResetPasswordSecurely(){
+    return new Promise(resolve => {
+        const existing = document.getElementById("resetPasswordOverlay");
+        if (existing) existing.remove();
 
-    const pass = prompt("🔐 Reset Dashboard Password");
-    if (pass === null) return;
+        const overlay = document.createElement("div");
+        overlay.id = "resetPasswordOverlay";
+        overlay.style.cssText = [
+            "position:fixed","inset:0","z-index:2147483647",
+            "display:flex","align-items:center","justify-content:center",
+            "padding:20px","background:rgba(0,0,0,.78)"
+        ].join(";");
+
+        const panel = document.createElement("form");
+        panel.style.cssText = [
+            "width:min(420px,100%)","box-sizing:border-box",
+            "padding:26px","border:1px solid #ef233c",
+            "border-radius:18px","background:#151515",
+            "color:#fff","box-shadow:0 12px 50px rgba(239,35,60,.22)",
+            "font-family:Arial,sans-serif"
+        ].join(";");
+
+        const heading = document.createElement("div");
+        heading.textContent = "🔐 Reset Dashboard Password";
+        heading.style.cssText = "font-size:19px;font-weight:700;margin-bottom:18px;color:#35dce5";
+
+        const input = document.createElement("input");
+        input.type = "password";
+        input.autocomplete = "current-password";
+        input.placeholder = "Enter Password";
+        input.required = true;
+        input.style.cssText = [
+            "display:block","width:100%","box-sizing:border-box",
+            "padding:14px","border:1px solid #888","border-radius:10px",
+            "background:#080808","color:#fff","font-size:17px",
+            "letter-spacing:3px","outline:none","margin-bottom:20px"
+        ].join(";");
+
+        const actions = document.createElement("div");
+        actions.style.cssText = "display:flex;justify-content:flex-end;gap:10px";
+
+        const cancel = document.createElement("button");
+        cancel.type = "button";
+        cancel.textContent = "Cancel";
+        cancel.style.cssText = "padding:11px 20px;border:0;border-radius:9px;background:#555;color:#fff;cursor:pointer";
+
+        const submit = document.createElement("button");
+        submit.type = "submit";
+        submit.textContent = "Verify & Reset";
+        submit.style.cssText = "padding:11px 20px;border:0;border-radius:9px;background:#ef233c;color:#fff;font-weight:700;cursor:pointer";
+
+        actions.append(cancel, submit);
+        panel.append(heading, input, actions);
+        overlay.append(panel);
+        document.body.append(overlay);
+
+        let settled = false;
+        const finish = value => {
+            if (settled) return;
+            settled = true;
+            overlay.remove();
+            resolve(value);
+        };
+
+        cancel.addEventListener("click", () => finish(null));
+        overlay.addEventListener("click", event => {
+            if (event.target === overlay) finish(null);
+        });
+        panel.addEventListener("submit", event => {
+            event.preventDefault();
+            const value = input.value;
+            if (!value) {
+                input.focus();
+                return;
+            }
+            finish(value);
+        });
+        input.addEventListener("keydown", event => {
+            if (event.key === "Escape") finish(null);
+        });
+
+        input.focus();
+    });
+}
+
+let resetDashboardInProgress = false;
+
+async function resetDashboard(){
+    if (resetDashboardInProgress) return;
+    resetDashboardInProgress = true;
+
+    const pass = await askResetPasswordSecurely();
+    if (pass === null) {
+        resetDashboardInProgress = false;
+        return;
+    }
 
     try {
         const response = await fetch("/__auth/reset-verify", {
@@ -514,15 +608,17 @@ async function resetDashboard(){
         const result = await response.json();
         if (!response.ok || !result.ok) {
             alert("❌ गलत पासवर्ड");
+            resetDashboardInProgress = false;
             return;
         }
     } catch (error) {
         alert("सर्वर से पासवर्ड Verify नहीं हो पाया। कृपया दोबारा कोशिश करें।");
+        resetDashboardInProgress = false;
         return;
     }
 
     if(db){
-        db.ref("dashboard").remove();
+        await db.ref("dashboard").remove();
     }
 
     localStorage.removeItem("dashboard");
