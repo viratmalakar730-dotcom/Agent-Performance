@@ -119,22 +119,41 @@
     }
   }
 
-  function openAdminComposer() {
+  async function openAdminComposer() {
+    const password = window.prompt("Admin Message Password");
+    if (password === null) return;
+
+    try {
+      const response = await fetch("/__auth/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password })
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) {
+        window.alert("Incorrect password.");
+        return;
+      }
+    } catch (error) {
+      window.alert("Password verification failed. Please try again.");
+      return;
+    }
+
     const { overlay, panel } = makeOverlay("");
     const head = document.createElement("div");
     head.className = "am-head";
     const title = document.createElement("div");
     title.className = "am-title";
-    title.textContent = "✉ Send Admin Message";
+    title.textContent = "Γ£ë Send Admin Message";
     const close = document.createElement("button");
     close.type = "button"; close.className = "am-btn am-cancel";
-    close.textContent = "✕";
+    close.textContent = "Γ£ò";
     close.style.minWidth = "42px";
     close.addEventListener("click", () => closeOverlay(overlay));
     head.append(title, close);
 
     const senderLabel = document.createElement("label");
-    senderLabel.className = "am-label"; senderLabel.textContent = "👤 Sent By (Name)";
+    senderLabel.className = "am-label"; senderLabel.textContent = "≡ƒæñ Sent By (Name)";
     const sender = document.createElement("select");
     sender.className = "am-input"; sender.id = "amSender";
     ADMIN_NAMES.forEach((name) => {
@@ -145,7 +164,7 @@
     sender.value = "Chandan Malakar";
 
     const messageLabel = document.createElement("label");
-    messageLabel.className = "am-label"; messageLabel.textContent = "💬 Message";
+    messageLabel.className = "am-label"; messageLabel.textContent = "≡ƒÆ¼ Message";
     const message = document.createElement("textarea");
     message.className = "am-input"; message.rows = 5; message.maxLength = 1500;
     message.placeholder = "Yahan apna message likhein...";
@@ -157,7 +176,7 @@
     cancel.type = "button"; cancel.className = "am-btn am-cancel"; cancel.textContent = "Cancel";
     cancel.addEventListener("click", () => closeOverlay(overlay));
     const send = document.createElement("button");
-    send.type = "button"; send.className = "am-btn am-send"; send.textContent = "➤ Send Message";
+    send.type = "button"; send.className = "am-btn am-send"; send.textContent = "Γ₧ñ Send Message";
     send.addEventListener("click", () => {
       const text = message.value.trim();
       if (!text) { alert("Please enter a message."); message.focus(); return; }
@@ -174,7 +193,7 @@
         .catch((error) => {
           console.error("Admin message send failed:", error);
           alert("Message send nahi hua. Firebase Database Rules / connection check karein.");
-          send.disabled = false; send.textContent = "➤ Send Message";
+          send.disabled = false; send.textContent = "Γ₧ñ Send Message";
         });
     });
     actions.append(cancel, send);
@@ -191,7 +210,7 @@
     toast.className = "am-toast";
     toast.setAttribute("role", "status");
     const icon = document.createElement("div");
-    icon.className = "am-toast-icon"; icon.textContent = "🔔";
+    icon.className = "am-toast-icon"; icon.textContent = "≡ƒöö";
     const content = document.createElement("div");
     content.className = "am-toast-content";
     const title = document.createElement("div");
@@ -199,14 +218,14 @@
     const text = document.createElement("div");
     text.className = "am-toast-text";
     const raw = String(data.message || "");
-    text.textContent = raw.length > 130 ? raw.slice(0, 127) + "…" : raw;
+    text.textContent = raw.length > 130 ? raw.slice(0, 127) + "ΓÇª" : raw;
     const meta = document.createElement("div");
     meta.className = "am-toast-meta";
-    meta.textContent = "From: " + (data.sender || "Admin") + "  •  " + istDateTime(data.createdAt);
+    meta.textContent = "From: " + (data.sender || "Admin") + "  ΓÇó  " + istDateTime(data.createdAt);
     content.append(title, text, meta);
     const close = document.createElement("button");
     close.type = "button"; close.className = "am-toast-close";
-    close.setAttribute("aria-label", "Dismiss notification"); close.textContent = "×";
+    close.setAttribute("aria-label", "Dismiss notification"); close.textContent = "├ù";
     close.addEventListener("click", () => toast.remove());
     toast.append(icon, content, close);
     document.body.appendChild(toast);
@@ -219,7 +238,7 @@
     const head = document.createElement("div");
     head.className = "am-live-head";
     const title = document.createElement("div");
-    title.className = "am-title"; title.textContent = "📢 ADMIN MESSAGE";
+    title.className = "am-title"; title.textContent = "≡ƒôó ADMIN MESSAGE";
     const badge = document.createElement("span");
     badge.className = "am-notice"; badge.textContent = "Notification";
     head.append(title, badge);
@@ -228,17 +247,17 @@
     body.className = "am-live-body";
     const date = document.createElement("div");
     date.className = "am-date";
-    date.textContent = "📅 " + istDateTime(data.createdAt);
+    date.textContent = "≡ƒôà " + istDateTime(data.createdAt);
     const sender = document.createElement("div");
     sender.className = "am-sender";
-    sender.textContent = "👤 Sent By: " + (data.sender || "Admin");
+    sender.textContent = "≡ƒæñ Sent By: " + (data.sender || "Admin");
     const message = document.createElement("div");
     message.className = "am-message";
     message.textContent = data.message || "";
     const okWrap = document.createElement("div");
     okWrap.className = "am-ok-wrap";
     const ok = document.createElement("button");
-    ok.type = "button"; ok.className = "am-btn am-ok"; ok.textContent = "✓ OK";
+    ok.type = "button"; ok.className = "am-btn am-ok"; ok.textContent = "Γ£ô OK";
     ok.addEventListener("click", () => closeOverlay(overlay));
     okWrap.appendChild(ok);
     body.append(date, sender, message, okWrap);
@@ -247,7 +266,7 @@
 
     if (document.hidden && "Notification" in window && Notification.permission === "granted") {
       try {
-        const notification = new Notification("📢 Admin Message", {
+        const notification = new Notification("≡ƒôó Admin Message", {
           body: (data.sender || "Admin") + ": " + (data.message || ""),
           tag: "admin-message-" + data.createdAt
         });

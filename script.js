@@ -3,27 +3,42 @@ console.log("🔥 FINAL PRO SYSTEM ULTRA");
 // ================= FIREBASE =================
 let db = null;
 
-function initFirebase(){
+async function initFirebase(){
 
     if(typeof firebase === "undefined"){
         console.error("❌ Firebase not loaded");
         return;
     }
 
-    const firebaseConfig = {
-        apiKey: "AIzaSy...",
-        authDomain: "agent-performance-live.firebaseapp.com",
-        databaseURL: "https://agent-performance-live-default-rtdb.firebaseio.com/",
-        projectId: "agent-performance-live"
-    };
+    try {
+        // The Firebase Web API key is supplied by a Cloudflare Pages Function
+        // so the repository never contains a fabricated/truncated key.
+        const configResponse = await fetch("/__config/firebase", { cache: "no-store" });
+        if (!configResponse.ok) {
+            throw new Error("Firebase API key is not configured in Cloudflare Pages (FIREBASE_API_KEY).");
+        }
+        const remoteConfig = await configResponse.json();
+        if (!remoteConfig.apiKey || !remoteConfig.projectId) {
+            throw new Error("Firebase configuration is incomplete.");
+        }
 
-    if (!firebase.apps.length){
-        firebase.initializeApp(firebaseConfig);
+        const firebaseConfig = {
+            apiKey: remoteConfig.apiKey,
+            authDomain: "agent-performance-live.firebaseapp.com",
+            databaseURL: "https://agent-performance-live-default-rtdb.firebaseio.com/",
+            projectId: "agent-performance-live"
+        };
+
+        if (!firebase.apps.length){
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        db = firebase.database();
+        console.log("🔥 Firebase Connected");
+    } catch (error) {
+        console.error("❌ Firebase configuration error:", error);
+        window.firebaseConfigError = error;
     }
-
-    db = firebase.database();
-
-    console.log("🔥 Firebase Connected");
 }
 
 function waitForFirebase(cb){
@@ -467,31 +482,35 @@ function processFiles(){
 
 // ================= RESET =================
 
-function resetDashboard(){
+async function resetDashboard(){
 
-    const pass =
-        prompt("🔐 Enter Code to Reset");
+    const pass = prompt("🔐 Reset Dashboard Password");
+    if (pass === null) return;
 
-    if(pass !== "1122"){
-
-        alert("❌ Wrong Code");
+    try {
+        const response = await fetch("/__auth/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password: pass })
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) {
+            alert("❌ गलत पासवर्ड");
+            return;
+        }
+    } catch (error) {
+        alert("सर्वर से पासवर्ड Verify नहीं हो पाया। कृपया दोबारा कोशिश करें।");
         return;
     }
 
     if(db){
-
         db.ref("dashboard").remove();
     }
 
     localStorage.removeItem("dashboard");
-
     sessionStorage.clear();
 
-    localStorage.removeItem("auth_ok");
-
-    window.location.replace(
-        "index.html?reset="+Date.now()
-    );
+    window.location.replace("index.html?reset=" + Date.now());
 }
 
 // ================= CORE =================
