@@ -79,15 +79,6 @@ export async function onRequest(context) {
   const { request, env, next } = context;
   const url = new URL(request.url);
 
-  // Firebase Web API keys identify the Firebase project/app; they are not
-  // authorization credentials. Return the configured value without caching.
-  if (url.pathname === "/__config/firebase" && request.method === "GET") {
-    if (!env.FIREBASE_API_KEY) return json({ ok: false, error: "FIREBASE_API_KEY is not configured" }, 503);
-    return json({ apiKey: env.FIREBASE_API_KEY, projectId: "agent-performance-live" }, 200, {
-      "cache-control": "no-store"
-    });
-  }
-
   if (url.pathname === "/__auth/login" && request.method === "POST") {
     if (!env.SITE_PASSWORD) return json({ ok: false, error: "SITE_PASSWORD secret is not configured" }, 503);
     let body;
@@ -122,6 +113,11 @@ export async function onRequest(context) {
     request.headers.get("Sec-Fetch-Mode") === "navigate" &&
     (request.headers.get("Accept") || "").includes("text/html");
 
+  // The Live page is intentionally public. It must not show the password gate.
+  if (isDocumentNavigation && url.pathname.toLowerCase() === "/live.html") {
+    return next();
+  }
+
   if (isDocumentNavigation) {
     const access = url.searchParams.get("__access");
     if (!(await validToken(env.SITE_PASSWORD, access))) {
@@ -145,11 +141,8 @@ export async function onRequest(context) {
     return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
   }
 
-  // Static resources are allowed only with a recent cookie minted by login.
-  const token = cookieValue(request);
-  if (!(await validToken(env.SITE_PASSWORD, token))) {
-    return new Response("Unauthorized", { status: 401, headers: { "cache-control": "no-store" } });
-  }
-
+  // Static assets (CSS, JS, images, audio) remain publicly fetchable so the
+  // password-free Live page can load its shared resources. Protected HTML
+  // documents are still gated above on every navigation.
   return next();
 }
