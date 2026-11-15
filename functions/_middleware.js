@@ -114,7 +114,7 @@ export async function onRequest(context) {
     (request.headers.get("Accept") || "").includes("text/html");
 
   // The Live page is intentionally public. It must not show the password gate.
-  if (isDocumentNavigation && url.pathname.toLowerCase() === "/live.html") {
+  if (isDocumentNavigation && ["/live", "/live/", "/live.html"].includes(url.pathname.toLowerCase())) {
     return next();
   }
 
