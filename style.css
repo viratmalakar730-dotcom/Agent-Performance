@@ -2659,3 +2659,105 @@ body > :not(#dashboardVideoBackground) {
   .upload-page .upload-choose-button,
   .upload-page .upload-generate-button { transition: none !important; }
 }
+
+
+/* COMPACT UPLOAD LAYOUT: keep Generate Dashboard visible without scrolling */
+.upload-page .upload-container {
+  min-height: 100vh !important;
+  height: auto !important;
+  padding: 12px 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+.upload-page .upload-panel {
+  width: min(100%, 780px) !important;
+  max-width: 780px !important;
+  padding: 20px 26px !important;
+  border-radius: 22px !important;
+}
+.upload-page .upload-header {
+  gap: 13px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+}
+.upload-page .upload-brand-icon {
+  width: 48px;
+  height: 48px;
+  flex-basis: 48px;
+  border-radius: 13px;
+  font-size: 27px;
+}
+.upload-page .upload-header h1 {
+  font-size: clamp(21px, 2.4vw, 29px) !important;
+}
+.upload-page .upload-section-title {
+  margin-bottom: 13px;
+  padding: 9px 22px;
+  font-size: 19px;
+  border-radius: 12px;
+}
+.upload-page .upload-file-card {
+  margin: 10px 0;
+  padding: 13px 16px 9px;
+  border-radius: 15px;
+}
+.upload-page .upload-file-heading {
+  gap: 12px;
+  margin-bottom: 9px;
+}
+.upload-page .upload-file-icon {
+  width: 42px;
+  height: 42px;
+  flex-basis: 42px;
+  border-radius: 11px;
+  font-size: 23px;
+}
+.upload-page .upload-file-heading h2 {
+  font-size: 16px !important;
+}
+.upload-page .upload-file-heading p {
+  font-size: 11px;
+}
+.upload-page .upload-dropzone {
+  min-height: 52px;
+  padding: 6px 9px 6px 12px;
+  gap: 10px;
+  border-radius: 11px;
+}
+.upload-page .upload-cloud-icon {
+  font-size: 25px;
+}
+.upload-page .upload-prompt {
+  font-size: 14px;
+}
+.upload-page .upload-choose-button {
+  min-height: 38px;
+  padding: 0 15px;
+  font-size: 13px;
+  border-radius: 9px;
+}
+.upload-page .upload-file-name {
+  min-height: 14px;
+  padding-top: 5px;
+  font-size: 11px;
+}
+.upload-page .upload-generate-button {
+  width: min(100%, 360px) !important;
+  min-height: 52px !important;
+  margin: 16px auto 2px !important;
+  border-radius: 13px !important;
+  font-size: 20px !important;
+}
+.upload-page .upload-loading {
+  margin-top: 10px;
+  font-size: 12px;
+}
+@media (max-height: 760px) and (min-width: 621px) {
+  .upload-page .upload-panel { padding-top: 14px !important; padding-bottom: 14px !important; }
+  .upload-page .upload-header { margin-bottom: 8px; padding-bottom: 8px; }
+  .upload-page .upload-section-title { margin-bottom: 8px; }
+  .upload-page .upload-file-card { margin: 7px 0; padding-top: 10px; padding-bottom: 7px; }
+  .upload-page .upload-generate-button { margin-top: 10px !important; }
+}
