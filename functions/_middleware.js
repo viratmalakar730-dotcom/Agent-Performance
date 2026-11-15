@@ -175,8 +175,10 @@ export async function onRequest(context) {
     request.headers.get("Sec-Fetch-Mode") === "navigate" &&
     (request.headers.get("Accept") || "").includes("text/html");
 
-  // The Live page is intentionally public. It must not show the password gate.
-  if (isDocumentNavigation && ["/live", "/live/", "/live.html"].includes(url.pathname.toLowerCase())) {
+  // Upload page and Live page are intentionally public.
+  // Dashboard remains protected and still requires a fresh password on navigation.
+  const publicPagePaths = ["/", "/index.html", "/live", "/live/", "/live.html"];
+  if (isDocumentNavigation && publicPagePaths.includes(url.pathname.toLowerCase())) {
     return next();
   }
 
