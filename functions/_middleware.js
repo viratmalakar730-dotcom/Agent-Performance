@@ -58,7 +58,7 @@ async function validOneTimeToken(secret, token) {
   const splitAt = token.lastIndexOf(".");
   const payload = token.slice(0, splitAt);
   const signature = token.slice(splitAt + 1);
-  const match = /^once:(\\d+):[a-f0-9]+$/.exec(payload);
+  const match = /^once:(\d+):[a-f0-9]+$/.exec(payload);
   if (!match || !signature) return false;
   const issued = Number(match[1]);
   const now = Math.floor(Date.now() / 1000);
