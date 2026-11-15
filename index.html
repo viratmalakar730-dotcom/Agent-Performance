@@ -1,98 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Upload</title>
-
-<link rel="stylesheet" href="style.css">
-
-<!-- ✅ Responsive -->
+<title>Agent Performance Report | Upload</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<link rel="stylesheet" href="style.css">
 </head>
+<body class="upload-page">
 
-<body>
+<div class="container upload-container">
+  <main class="box upload-panel">
+    <header class="upload-header">
+      <div class="upload-brand-icon" aria-hidden="true">📊</div>
+      <h1>Agent Performance Report</h1>
+    </header>
 
+    <div class="upload-section-title">
+      <span aria-hidden="true">📁</span>
+      <span>Upload Required Data</span>
+    </div>
 
+    <section class="upload-file-card" aria-labelledby="aprLabel">
+      <div class="upload-file-heading">
+        <span class="upload-file-icon apr-icon" aria-hidden="true">▦</span>
+        <div>
+          <h2 id="aprLabel">Upload Agent Performance (APR)</h2>
+          <p>Excel or CSV report</p>
+        </div>
+      </div>
+      <div class="upload-dropzone">
+        <span class="upload-cloud-icon" aria-hidden="true">☁</span>
+        <span class="upload-prompt">Choose APR File (Excel/CSV)</span>
+        <label class="upload-choose-button" for="aprFile">📂 Choose File</label>
+        <input type="file" id="aprFile" accept=".xls,.xlsx,.csv" onchange="showFileName('aprFile','aprName')">
+      </div>
+      <div id="aprName" class="upload-file-name" aria-live="polite">No APR file selected</div>
+    </section>
 
-<div class="container">
-<div class="box">
+    <section class="upload-file-card" aria-labelledby="cdrLabel">
+      <div class="upload-file-heading">
+        <span class="upload-file-icon cdr-icon" aria-hidden="true">☎</span>
+        <div>
+          <h2 id="cdrLabel">Upload CDR Report</h2>
+          <p>Excel or CSV report</p>
+        </div>
+      </div>
+      <div class="upload-dropzone">
+        <span class="upload-cloud-icon" aria-hidden="true">☁</span>
+        <span class="upload-prompt">Choose CDR File (Excel/CSV)</span>
+        <label class="upload-choose-button" for="cdrFile">📂 Choose File</label>
+        <input type="file" id="cdrFile" accept=".xls,.xlsx,.csv" onchange="showFileName('cdrFile','cdrName')">
+      </div>
+      <div id="cdrName" class="upload-file-name" aria-live="polite">No CDR file selected</div>
+    </section>
 
-<h2>📂 Upload Required Data</h2>
+    <button id="generateBtn" class="upload-generate-button" type="button" onclick="processFiles()">🚀 Generate Dashboard</button>
 
-<p>📊 Upload Agent Performance (APR)</p>
-<input type="file" id="aprFile" onchange="showFileName('aprFile','aprName')">
-<div id="aprName" style="font-size:12px;color:#9ca3af;"></div>
-
-<p>📞 Upload CDR Report</p>
-<input type="file" id="cdrFile" onchange="showFileName('cdrFile','cdrName')">
-<div id="cdrName" style="font-size:12px;color:#9ca3af;"></div>
-
-<button id="generateBtn" onclick="processFiles()">🚀 Generate Dashboard</button>
-
-<!-- 🔄 Loading -->
-<div id="loading" style="display:none; margin-top:10px;">
-⏳ Processing... Please wait
+    <div id="loading" class="upload-loading" style="display:none;" role="status" aria-live="polite">
+      <span class="upload-spinner" aria-hidden="true"></span>
+      <span>Processing reports… Please wait</span>
+    </div>
+  </main>
 </div>
 
-</div>
-</div>
-
-<!-- Excel -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-<!-- 🔥 Helper Script -->
 <script>
-function showFileName(inputId, displayId){
-    let file = document.getElementById(inputId).files[0];
-    if(file){
-        document.getElementById(displayId).innerText = "✔ " + file.name;
-    }
+function showFileName(inputId, displayId) {
+  const input = document.getElementById(inputId);
+  const display = document.getElementById(displayId);
+  const file = input && input.files && input.files[0];
+  if (!display) return;
+  if (file) {
+    const size = file.size < 1024 * 1024
+      ? (file.size / 1024).toFixed(1) + " KB"
+      : (file.size / (1024 * 1024)).toFixed(2) + " MB";
+    display.textContent = "✓ " + file.name + " · " + size;
+    display.classList.add("has-file");
+  } else {
+    display.textContent = inputId === "aprFile" ? "No APR file selected" : "No CDR file selected";
+    display.classList.remove("has-file");
+  }
 }
-</script>
 
-<!-- Main Script -->
-<script src="script.js"></script>
-
-<!-- 🔥 UX Upgrade -->
-<script>
-const originalProcess = window.processFiles;
-
-window.processFiles = function(){
-
-    let apr = document.getElementById("aprFile").files[0];
-    let cdr = document.getElementById("cdrFile").files[0];
-
-    if(!apr || !cdr){
-        alert("⚠️ Please upload both APR & CDR files");
-        return;
-    }
-
-    // 🔄 UI Update
-    document.getElementById("loading").style.display = "block";
-
-    let btn = document.getElementById("generateBtn");
-    btn.innerText = "⏳ Processing...";
-    btn.disabled = true;
-
-    // 🔥 Call original
-    originalProcess();
-};
-
-// 🔥 ENTER KEY SUPPORT
-document.addEventListener("keydown", function(e){
-    if(e.key === "Enter"){
-        let btn = document.getElementById("generateBtn");
-        if(btn && !btn.disabled){
-            btn.click();
-        }
-    }
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    const button = document.getElementById("generateBtn");
+    if (button && !button.disabled) button.click();
+  }
 });
 </script>
-
+<script src="script.js"></script>
+<script>
+const originalProcess = window.processFiles;
+window.processFiles = function() {
+  const apr = document.getElementById("aprFile").files[0];
+  const cdr = document.getElementById("cdrFile").files[0];
+  if (!apr || !cdr) {
+    alert("⚠️ Please upload both APR & CDR files");
+    return;
+  }
+  const loading = document.getElementById("loading");
+  const button = document.getElementById("generateBtn");
+  if (loading) loading.style.display = "flex";
+  if (button) {
+    button.innerHTML = '<span class="upload-spinner" aria-hidden="true"></span> Processing...';
+    button.disabled = true;
+  }
+  originalProcess();
+};
+</script>
 </body>
 </html>
