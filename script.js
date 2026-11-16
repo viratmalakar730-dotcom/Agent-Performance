@@ -98,17 +98,89 @@ function secondsToTime(sec){
 // ================= SEARCH =================
 
 function searchTable(){
-
     let v = $("search")?.value.toLowerCase() || "";
-
     document.querySelectorAll("#table tbody tr").forEach(r=>{
-
-        r.style.display =
-            r.innerText.toLowerCase().includes(v)
-            ? ""
-            : "none";
+        r.style.display = r.innerText.toLowerCase().includes(v) ? "" : "none";
     });
 }
+
+// ================= TABLE SORTING =================
+let activeSortColumn = -1;
+let activeSortDirection = "asc";
+let originalTableRows = [];
+
+function sortCellValue(value, columnIndex) {
+    const text = String(value ?? "").trim();
+    // Time columns: compare actual elapsed seconds, not their displayed text.
+    if ([3,4,5,6,7,8].includes(columnIndex) && /^\d{1,3}:\d{2}(?::\d{2})?$/.test(text)) {
+        const p = text.split(":").map(Number);
+        return p.length === 3 ? p[0]*3600 + p[1]*60 + p[2] : p[0]*60 + p[1];
+    }
+    // Numeric columns and numeric employee IDs sort numerically.
+    if ([0,1,9,10,11].includes(columnIndex) && /^-?\d+(?:\.\d+)?$/.test(text)) return Number(text);
+    return text.toLocaleLowerCase();
+}
+
+function applyTableSort(columnIndex, direction) {
+    const tbody = document.querySelector("#table tbody");
+    if (!tbody) return;
+    const rows = Array.from(tbody.querySelectorAll("tr"));
+    if (!originalTableRows.length || rows.length !== originalTableRows.length) originalTableRows = rows.slice();
+    if (direction === "original") {
+        originalTableRows.forEach(row => tbody.appendChild(row));
+        activeSortColumn = -1;
+        document.querySelectorAll("#table thead th").forEach(th => th.removeAttribute("aria-sort"));
+    } else {
+        rows.sort((a,b) => {
+            const av = sortCellValue(a.cells[columnIndex]?.textContent, columnIndex);
+            const bv = sortCellValue(b.cells[columnIndex]?.textContent, columnIndex);
+            const cmp = typeof av === "number" && typeof bv === "number" ? av-bv : String(av).localeCompare(String(bv), undefined, {numeric:true,sensitivity:"base"});
+            return direction === "asc" ? cmp : -cmp;
+        });
+        rows.forEach(row => tbody.appendChild(row));
+        activeSortColumn = columnIndex;
+        document.querySelectorAll("#table thead th").forEach((th,i) => {
+            if (i === columnIndex) th.setAttribute("aria-sort", direction === "asc" ? "ascending" : "descending");
+            else th.removeAttribute("aria-sort");
+        });
+    }
+    searchTable();
+}
+
+function sortSelectedColumn() {
+    const select = $("sortColumn");
+    const button = $("sortDirection");
+    if (!select || select.value === "") return;
+    const column = Number(select.value);
+    if (activeSortColumn !== column) activeSortDirection = "asc";
+    else activeSortDirection = activeSortDirection === "asc" ? "desc" : "asc";
+    applyTableSort(column, activeSortDirection);
+    button.textContent = activeSortDirection === "asc" ? "A → Z" : "Z → A";
+}
+
+function initTableSorting() {
+    document.querySelectorAll("#table thead th").forEach((th, index) => {
+        th.title = "Click to sort ascending / descending";
+        th.style.cursor = "pointer";
+        th.addEventListener("click", () => {
+            if (activeSortColumn !== index) activeSortDirection = "asc";
+            else activeSortDirection = activeSortDirection === "asc" ? "desc" : "asc";
+            applyTableSort(index, activeSortDirection);
+            const select = $("sortColumn");
+            const button = $("sortDirection");
+            if (select) select.value = String(index);
+            if (button) { button.disabled = false; button.textContent = activeSortDirection === "asc" ? "A → Z" : "Z → A"; }
+        });
+    });
+    const select = $("sortColumn");
+    if (select) select.addEventListener("change", () => {
+        const button = $("sortDirection");
+        if (button) { button.disabled = select.value === ""; button.textContent = "A → Z"; }
+        if (select.value !== "") { activeSortDirection = "asc"; applyTableSort(Number(select.value), "asc"); }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", initTableSorting);
 
 // ================= SOUND SYSTEM =================
 
@@ -785,6 +857,8 @@ function loadDashboard(data){
 
     tbody.innerHTML = "";
 
+    originalTableRows = [];
+    activeSortColumn = -1;
     data.final.forEach((r,i)=>{
 
         let loginSec =
@@ -876,6 +950,7 @@ function loadDashboard(data){
         tbody.appendChild(tr);
     });
 
+    originalTableRows = Array.from(tbody.querySelectorAll("tr"));
     let c = data.summary;
 
     $("cards").innerHTML = `
@@ -947,4 +1022,5 @@ document.addEventListener(
 window.processFiles = processFiles;
 window.resetDashboard = resetDashboard;
 window.searchTable = searchTable;
+window.sortSelectedColumn = sortSelectedColumn;
 window.exportExcel = exportExcel;

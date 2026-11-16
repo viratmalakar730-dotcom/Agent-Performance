@@ -30,6 +30,14 @@
 <!-- Search and actions aligned to the top-left of the report table -->
 <div class="report-toolbar">
   <input type="text" id="search" placeholder="🔍 Search Agent Full Name..." onkeyup="searchTable()">
+  <select id="sortColumn" aria-label="Sort report by" title="Sort report by">
+    <option value="">↕ Sort By Column</option>
+    <option value="0">S.No</option><option value="1">Employee ID</option><option value="2">Agent Full Name</option>
+    <option value="3">Total Login</option><option value="4">Net Login</option><option value="5">Total Break</option>
+    <option value="6">Total Meeting</option><option value="7">Total ACW</option><option value="8">AHT</option>
+    <option value="9">Total Mature</option><option value="10">IB Mature</option><option value="11">OB Mature</option>
+  </select>
+  <button id="sortDirection" type="button" onclick="sortSelectedColumn()" disabled> A → Z </button>
   <button onclick="exportExcel()">📤 Excel</button>
   <button onclick="resetDashboard()">🔄 Reset</button>
   <button id="adminMessageOpen" class="admin-message-icon" type="button" title="Send Admin Message" aria-label="Send Admin Message">✉</button>

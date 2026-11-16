@@ -2761,3 +2761,17 @@ body > :not(#dashboardVideoBackground) {
   .upload-page .upload-file-card { margin: 7px 0; padding-top: 10px; padding-bottom: 7px; }
   .upload-page .upload-generate-button { margin-top: 10px !important; }
 }
+
+/* Admin report sorting controls */
+.report-toolbar #sortColumn {
+  height: 43px !important; min-width: 175px; max-width: 230px;
+  padding: 8px 12px !important; border: 1px solid #9bb8a5 !important;
+  border-radius: 9px !important; background: #fff !important;
+  color: #174b36 !important; font-weight: 700 !important;
+  box-sizing: border-box !important;
+}
+.report-toolbar #sortDirection { min-width: 86px; }
+.report-toolbar #sortDirection:disabled { opacity: .55; cursor: not-allowed; }
+#table thead th[aria-sort="ascending"]::after { content: " ▲"; font-size: 10px; }
+#table thead th[aria-sort="descending"]::after { content: " ▼"; font-size: 10px; }
+@media (max-width: 650px) { .report-toolbar #sortColumn { flex: 1 1 170px; max-width: 100%; } }
